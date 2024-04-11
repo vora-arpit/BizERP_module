@@ -1,0 +1,77 @@
+/* Import variables */
+@import "../../../variables";
+
+/* Authentication section */
+.auth {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color:white;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+
+}
+
+/* Authentication component */
+.auth-component {
+  background-color: #aca3c2;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  justify-content: center;
+   
+
+  @media screen and (min-width: 768px) {
+    padding: 1rem 3rem;
+    flex-basis: 40%;
+  }
+}
+
+/* Welcome section */
+.welcome {
+  background-color: rgb(5 18 43 / 92%);
+  color: #fbfafa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem 2rem;
+   
+
+
+  @media screen and (min-width: 768px) {
+    padding: 1rem 3rem;
+    flex-basis: 60%;
+  }
+}
+
+/* Welcome section heading */
+.welcome__heading {
+  font-size: 4rem;
+  font-weight: 100;
+  line-height: 1;
+}
+
+/* Welcome section text */
+.welcome__text {
+  width: 70%;
+  margin: 0 auto;
+}
+
+/* Logo */
+.logo {
+  /* Logo image */
+  &__img {
+    align-self: center;
+  }
+
+  /* Logo header */
+  &__header {
+    font-size: 2.5rem;
+    align-self: center;
+  }
+}
+

@@ -1,0 +1,95 @@
+<div class="side-menu">
+  <div class="brand mgt-small mgb-med">
+    <img class="logo" src="/assets/images/logo1.svg" height="50px" alt="Logo"> 
+    <h2 class="brand__title">ERP</h2>
+  </div>
+  <div class="profile mgb-med">
+      <img src="{{ user?.imageUrl || '/assets/images/nouser.png' }}" height="50px" alt="avatar" class="profile__pic"> 
+      <h5 class="profile__name">{{ user?.name }}</h5>
+      <span class="text-muted">{{ user?.roles?.join(', ') }}</span>
+  </div>
+  <ul class="menu"> 
+    <li class="menu__item" >
+      <a routerLink="/dashboard"  routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <i-feather name="monitor"></i-feather>
+        <span class="menu__item--link-text">Dashboard</span>
+      </a>
+    </li>
+    <li class="menu__item" >
+      <a routerLink="/customers"  routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <i-feather name="users"></i-feather>
+        <span class="menu__item--link-text">Customers</span>
+      </a>
+    </li>
+    <li class="menu__item" >
+      <a routerLink="/products" routerLinkActive="menu__item--link-active" class="menu__item--link">
+          <i-feather name="tag"></i-feather>
+          <span class="menu__item--link-text">Products</span>
+        </a>
+    </li>
+    <li class="menu__item" >
+      <a routerLink="/order" routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <i-feather name="shopping-cart"></i-feather>
+        <span class="menu__item--link-text">Orders</span>
+      </a>
+    </li>
+
+    <!-- <li class="menu__item" >
+      <a routerLink="/clients" routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <i-feather name="Users"></i-feather>
+        <span class="menu__item--link-text">Client</span>
+      </a>
+    </li>
+
+    <li class="menu__item" >
+      <a routerLink="/categories" routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <i-feather name="Box"></i-feather>
+        <span class="menu__item--link-text">Catagories</span>
+      </a>
+    </li>
+
+    <li class="menu__item" >
+      <a routerLink="/employees" routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <i-feather name="Employees"></i-feather>
+        <span class="menu__item--link-text">Employees</span>
+      </a>
+    </li>
+
+    <li class="menu__item" >
+      <a routerLink="/Events" routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <i-feather name="Events"></i-feather>
+        <span class="menu__item--link-text">Events</span>
+      </a>
+    </li>
+
+    <li class="menu__item" >
+      <a routerLink="/History" routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <i-feather name="History"></i-feather>
+        <span class="menu__item--link-text">History</span>
+      </a>
+    </li>
+
+    <li class="menu__item" >
+      <a routerLink="/Productspage" routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <i-feather name="Productspage"></i-feather>
+        <span class="menu__item--link-text">Productspage</span>
+      </a>
+    </li>
+
+    <li class="menu__item" >
+      <a routerLink="/client" routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <i-feather name="Settings"></i-feather>
+        <span class="menu__item--link-text">Settings</span>
+      </a>
+    </li> -->
+
+    <li class="menu__item" *ngIf="user?.roles?.includes('ADMIN')">
+      <a routerLink="/users"  routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <i-feather name="shield"></i-feather>
+        <span class="menu__item--link-text">Users</span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- {{ user | json }} -->
+</div>

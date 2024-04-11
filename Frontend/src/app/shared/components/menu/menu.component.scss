@@ -1,0 +1,72 @@
+.side-menu {
+    width: 240px;
+    min-height: 100vh;
+    padding: 15px 15px 15px 25px;
+    background-color: rgb(12 14 27 / 80%);
+  }
+  
+  .brand {
+    display: flex;
+    align-content: center;
+    &__title {
+      padding-left: 10px;
+      margin-top: -12px;
+      color: #ebe8e8;
+      font-size: 40px;
+    }
+  }
+
+  .logo{
+    margin-top: -7px;
+    margin-left:20px
+  }
+  
+  .profile {
+    &__pic {
+      border-radius: 50%;
+    }
+  }
+  
+  .menu {
+    list-style: none;
+    &__item {
+      position: relative; /* Position relative to allow absolute positioning of pseudo-elements */
+      color: #faf5f5;
+      padding-bottom: 20px;
+      &::before,
+      &::after {
+        content: ''; /* Empty content */
+        position: absolute; /* Position absolutely */
+        left: 0;
+        right: 0;
+        height: 1px; /* Height of the line */
+        background-color: white; /* Color of the line */
+      }
+      &::before {
+        top: -12px; /* Position above the item */
+      }
+      &::after {
+        bottom: 12px; /* Position below the item */
+      }
+      &--link {
+        display: flex;
+        &:link,
+        &:visited {
+          text-decoration: none;
+          color: inherit;
+        }
+        &:hover,
+        &:focus,
+        &-active:link,
+        &-active:visited,
+        &-active:focus,
+        &-active:hover {
+          color: rgb(194 32 17);
+        }
+        &-text {
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+  

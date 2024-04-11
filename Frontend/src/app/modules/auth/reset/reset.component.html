@@ -1,0 +1,32 @@
+<h3 class="text-center mgb-med">Recover Your Password</h3>
+<div class="register">
+  <form class="login__form mgb-med" [formGroup]="resetForm" (ngSubmit)="onSubmit()">
+    <label for="password" class="login__label">New Password</label>
+    <div class="input-group mgb-small">
+      <span class="input-group__icon material-icons">vpn_key</span>
+      <input type="text" class="input-group__input" id="password" formControlName="password"/>
+    </div>
+    <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+      <div *ngIf="f['password'].errors['required']">Password mus contain one capital,special character and length is >8</div>
+    </div>
+
+    <div class="mgt-small"></div>
+
+    <label for="password1" class="login__label">Repeat Password</label>
+    <div class="input-group mgb-small">
+      <span class="input-group__icon material-icons">vpn_key</span>
+      <input type="text" class="input-group__input" id="password1" formControlName="password1"/>
+    </div>
+    <div *ngIf="submitted && f['password1'].errors" class="invalid-feedback">
+      <div *ngIf="f['password1'].errors['required']">Password mus contain one capital,special character and length is >8</div>
+    </div>
+
+    <div class="mgt-small"></div>
+
+    <button type="submit" id="linkbutton" class="btn btn-primary btn-block">Submit</button>
+  </form>
+  <div class="forgot__links">
+    <a routerLink="/auth/login">Go to Login page</a>
+    <a routerLink="/auth/register">Register</a>
+  </div>
+</div>
