@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Customer } from '../models';
 import { environment } from '../../../environments/environment.development';
 
@@ -11,13 +11,14 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
 
-  findById(id: number): Observable<Customer> {
+  findById(id: bigint): Observable<Customer> {
     return this.http.get<Customer>(`${this.rootPath}/${id}`);
   }
 
-  findAll(text: any): Observable<[Customer]> {
-    return this.http.get<[Customer]>(`${this.rootPath}?filter=${text}`).pipe(
-      tap(response => console.log('Response from findAll:', response))
+  findAll(text: string): Observable<Customer[]> {
+    console.log("text",text)
+    return this.http.get<Customer[]>(`${this.rootPath}?filter=${text}`).pipe(
+      catchError(this.handleError)
     );
   }
   
@@ -26,11 +27,11 @@ export class CustomerService {
     return this.http.post<Customer>(`${this.rootPath}`, customer);
   }
 
-  update(id: number, customer: Customer): Observable<Customer> {
+  update( id: bigint,customer: Customer): Observable<Customer> {
     return this.http.put<Customer>(`${this.rootPath}/${id}`, customer);
   }
 
-  delete(id: number): Observable<void> {
+  delete(id: bigint): Observable<void> {
     return this.http.delete<void>(`${this.rootPath}/${id}`);
   }
 
@@ -43,5 +44,10 @@ export class CustomerService {
         console.error('Error fetching customers:', error);
       }
     );
+  }
+
+  private handleError(error: any) {
+    console.error("An error occurred", error); // For demo purposes only
+    return throwError(error.message || "Server error");
   }
 }

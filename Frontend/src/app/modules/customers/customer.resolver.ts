@@ -12,7 +12,7 @@ export class CustomerResolver implements Resolve<Customer> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Customer> {
     const id = route.paramMap.get('id');
     if (id !== null) {
-      return this.customerService.findById(+id);
+      return this.customerService.findById(BigInt(id));
     } else {
       throw new Error('Customer ID is null');
     }

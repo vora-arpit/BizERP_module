@@ -12,7 +12,7 @@ export class CustomerListComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() public customers: Customer[] = [];
 
   @Output() public filtered: EventEmitter<string> = new EventEmitter();
-  @ViewChild('filterInput') filterInput?: ElementRef<HTMLInputElement>;
+  @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
 
   pagedCustomers: Customer[] = [];
   currentPage = 1;
