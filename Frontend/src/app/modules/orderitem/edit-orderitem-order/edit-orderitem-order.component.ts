@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
-import { Order, OrderItem, OrderItemService, OrderService, Product } from '../../../core';
+import { NotificationService, Order, OrderItem, OrderItemService, OrderService, Product } from '../../../core';
 
 @Component({
   selector: 'app-edit-orderitem-order',
@@ -24,7 +24,8 @@ export class EditOrderitemOrderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private orderItemService: OrderItemService,private router:Router,private orderService:OrderService
+    private orderItemService: OrderItemService,private router:Router,private orderService:OrderService,
+    private notificationService:NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +40,7 @@ export class EditOrderitemOrderComponent implements OnInit {
           this.orderItem = result;
         },
         (error) => {
-          console.error('Error fetching order item:', error);
+          this.notificationService.showError('Error fetching order item:' +error);
         }
       );
     }
@@ -56,7 +57,7 @@ export class EditOrderitemOrderComponent implements OnInit {
           this.order = result;
         },
         (error) => {
-          console.error('Error fetching order item:', error);
+          this.notificationService.showError('Error fetching order item:' +error);
         }
       );
     }
@@ -82,11 +83,11 @@ export class EditOrderitemOrderComponent implements OnInit {
     
     this.orderItemService.updateOrderItem(this.orderItemId,this.orderItem).subscribe(
       (result) => {
-        console.log('Order item updated successfully:');
+        this.notificationService.showSuccess('Order item updated successfully:');
         // Optionally, navigate back to the order item list or perform any other action
       },
       (error) => {
-        console.error('Error updating order item:', error);
+        this.notificationService.showError('Error while updating order item'+error);
       }
     );
   }
@@ -105,11 +106,11 @@ export class EditOrderitemOrderComponent implements OnInit {
     
     this.orderItemService.createOrderItem(this.productId,this.orderId,neworderItem).subscribe(
       (result) => {
-        console.log('Order item Added successfully:');
+        this.notificationService.showSuccess('Order item Added successfully:');
         // Optionally, navigate back to the order item list or perform any other action
       },
       (error) => {
-        console.error('Error While Adding order item:', error);
+        this.notificationService.showError('Error While Adding order item:' +error);
       }
     );
   }
@@ -122,17 +123,17 @@ export class EditOrderitemOrderComponent implements OnInit {
       if (confirm('Are you sure you want to delete this order item?')) {
         this.orderItemService.deleteOrderItem(this.orderItem.id).subscribe(
           () => {
-            console.log('Order item deleted successfully.');
+           this.notificationService.showSuccess('Order item deleted successfully.');
             // Optionally, navigate back to the order list or perform any other action
           },
           (error) => {
-            console.error('Error deleting order item:', error);
+            this.notificationService.showError('Error while deleting order item' +error);
             // Optionally, show an error message to the user
           }
         );
       }
     } else {
-      console.warn('Order item ID is missing.');
+      this.notificationService.showError('Order item ID is missing.');
     }
   }
 

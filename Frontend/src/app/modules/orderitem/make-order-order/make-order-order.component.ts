@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { Customer, Order, OrderItem, OrderService } from '../../../core';
+import { Customer, NotificationService, Order, OrderItem, OrderService } from '../../../core';
 
 @Component({
   selector: 'app-make-order-order',
@@ -25,7 +25,7 @@ export class MakeOrderOrderComponent implements OnInit{
   returnUrl!: string; 
 
   constructor(
-    private orderService: OrderService,
+    private orderService: OrderService,private notificationService: NotificationService,
     private router: Router,private route:ActivatedRoute
   ) {}
 
@@ -50,16 +50,16 @@ export class MakeOrderOrderComponent implements OnInit{
     this.orderService.create(this.customerId, this.orderItemId,newOrder).subscribe(
       (result) => {
         // Handle success response
-        console.log('Order added Successfully');
+        this.notificationService.showSuccess('Order added Successfully');
       },
       (error) => {
         // Handle error response
-        console.error('Error while adding order:', error);
+        this.notificationService.showError('Error while adding order:'+ error);
       }
     );
 
     // Log the original order object
-    console.log(this.order);
+    // console.log(this.order);
   }
 
   canceled() {
@@ -72,7 +72,7 @@ export class MakeOrderOrderComponent implements OnInit{
 
   deleteOrder(): void {
     if (this.order.itemcount && this.order.itemcount > 0) {
-      console.log('Cannot delete order with associated order items');
+      this.notificationService.showError('Cannot delete order with associated order items');
       return; // Exit the method if there are associated order items
     }
 
@@ -80,11 +80,11 @@ export class MakeOrderOrderComponent implements OnInit{
       if (confirm('Are you sure you want to delete this order?')) {
         this.orderService.deleteOrder(this.order.id).subscribe(
           () => {
-            console.log('Order deleted successfully');
+            this.notificationService.showSuccess('Order deleted successfully');
             // Optionally, navigate back to the order list or perform any other action
           },
           (error) => {
-            console.error('Error deleting order:', error);
+            this.notificationService.showError('Error deleting order:'+ error);
           }
         );
       }
