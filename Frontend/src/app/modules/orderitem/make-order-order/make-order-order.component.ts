@@ -70,15 +70,15 @@ export class MakeOrderOrderComponent implements OnInit{
     this.showModal = !this.showModal;
   }
 
-  deleteOrder(order: Order): void {
-    if (order.itemcount && order.itemcount > 0) {
+  deleteOrder(): void {
+    if (this.order.itemcount && this.order.itemcount > 0) {
       console.log('Cannot delete order with associated order items');
       return; // Exit the method if there are associated order items
     }
 
-    if (order.id) {
+    if (this.order.id) {
       if (confirm('Are you sure you want to delete this order?')) {
-        this.orderService.deleteOrder(order.id).subscribe(
+        this.orderService.deleteOrder(this.order.id).subscribe(
           () => {
             console.log('Order deleted successfully');
             // Optionally, navigate back to the order list or perform any other action
