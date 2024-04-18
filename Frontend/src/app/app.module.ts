@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule, ProductService } from './core';
+import { CoreModule, OrderItemService, OrderService, ProductService } from './core';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -39,7 +39,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     MatIconModule,StoreModule.forRoot(allReducers),EffectsModule.forRoot(allEffects), StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [
-    provideClientHydration(),ProductService
+    provideClientHydration(),ProductService,OrderService,OrderItemService
+
   ],
   bootstrap: [AppComponent]
 })

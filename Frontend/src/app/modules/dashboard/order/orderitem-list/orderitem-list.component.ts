@@ -10,13 +10,13 @@ import { OrderItem, OrderItemService } from '../../../../core';
 export class OrderItemListComponent implements OnInit {
 
   orderItems: OrderItem[] = [];
-  orderId: number;
+  orderId: bigint;
 
   constructor(private route: ActivatedRoute, private orderItemService: OrderItemService) { }
 
   ngOnInit(): void {
     // Retrieve the order ID from the route parameters
-    this.orderId = Number(this.route.snapshot.paramMap.get('orderid'));
+    this.orderId = BigInt(this.route.snapshot.paramMap.get('orderid'));
     
     // Fetch order items based on the order ID
     this.orderItemService.getOrderItemsByOrderId(this.orderId).subscribe((result) => {

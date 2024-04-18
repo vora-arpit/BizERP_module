@@ -4,12 +4,14 @@ import { addOrderItemSuccess, deleteOrderItemSuccess, getOrderItemSuccess, updat
 
 const _orderItemReducer=createReducer(
     orderItemInitialState,
-    on(getOrderItemSuccess,(state,action)=>{
-        return{
-            ...state,
-            orderItem:action.orderItem
+    on(getOrderItemSuccess, (state, action) => {
+        // console.dir(action.orderItem, {depth : 10})
+        return {
+          ...state,
+          orderItem: action.orderItem
         };
-    }),
+      }),
+      
     on(addOrderItemSuccess,(state,action)=>{
         return{
             ...state,
