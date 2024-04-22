@@ -15,7 +15,7 @@ export class OrderItemService {
     return this.http.get<OrderItem>(`${this.baseUrl}/${id}`);
   }
 
-  getOrderItemsByOrderId(id: bigint): Observable<OrderItem[]> {
+  getOrderItemsByOrderId(id: number): Observable<OrderItem[]> {
     return this.http.get<OrderItem[]>(`${this.baseUrl}/order/${id}`);
   }
 

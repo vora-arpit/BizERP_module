@@ -11,29 +11,34 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-orderitem-list-order',
   templateUrl: './orderitem-list-order.component.html',
-  styleUrl: './orderitem-list-order.component.scss'
+  styleUrls: ['./orderitem-list-order.component.scss']
 })
 export class OrderitemListOrderComponent implements OnInit {
 
   orderItems: OrderItem[] = [];
-  orderId: bigint;
+  orderId: number;
   orderItemId:number;
-  subscription: Subscription;
+  // subscription: Subscription;
 
 
-  constructor(private route: ActivatedRoute,private store:Store, private orderItemService: OrderItemService,private notificationService : NotificationService,private router:Router) { }
+  constructor(private route: ActivatedRoute,private store:Store, private orderItemService: OrderItemService,private notificationService : NotificationService,private router:Router) 
+  {
+    // this.subscription=this.store.select(getAllOrderItems).subscribe((Result) => {
+    //   this.orderItems = Result;
+    // });
+    }
 
   ngOnInit(): void {
     // Retrieve the order ID from the route parameters
-    this.orderId = BigInt(this.route.snapshot.paramMap.get('orderid'));
+    this.orderId = Number(this.route.snapshot.paramMap.get('orderid'));
     this.orderItemId=Number(this.route.snapshot.paramMap.get('orderItemId'));
-    // Fetch order items based on the order ID
+    // // Fetch order items based on the order ID
     this.orderItemService.getOrderItemsByOrderId(this.orderId).subscribe((result) => {
       this.orderItems = result;
     });
-
-    this.store.dispatch(getOrderItem({ orderId: this.orderId }));
-
+    
+    // this.store.dispatch(getOrderItem({ orderId: this.orderId }))
+    
     // Subscribe to the store to get order items
     // this.store.select(getAllOrderItems).subscribe((Result) => {
     //   this.orderItems = Result;

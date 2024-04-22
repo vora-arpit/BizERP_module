@@ -2,7 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import { OrderItemStateActionsTypes as Types } from "../enums/orderItem.action-types.enum";
 import { OrderItem } from "../../core";
 
-export const getOrderItem = createAction(Types.GET_ORDERITEM, props<{ orderId: bigint }>());
+export const getOrderItem = createAction(Types.GET_ORDERITEM, props<{ orderId: number }>());
 export const getOrderItemSuccess = createAction(Types.GET_ORDERITEM_SUCCESS, props<{ orderItem: OrderItem[] }>());
 export const getOrderItemFailure = createAction(Types.GET_ORDERITEM_FAILURE, props<{ error: any }>());
 
