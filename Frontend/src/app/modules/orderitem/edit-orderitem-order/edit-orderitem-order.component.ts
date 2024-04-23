@@ -29,12 +29,10 @@ export class EditOrderitemOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Retrieve the order item ID from the route parameters
     const orderItemIdParam = this.route.snapshot.paramMap.get('orderItemId');
     if (orderItemIdParam) {
       this.orderItemId = BigInt(orderItemIdParam);
     
-      // Fetch the order item details based on the ID
       this.orderItemService.getOrderItemById(this.orderItemId).subscribe(
         (result) => {
           this.orderItem = result;
@@ -50,7 +48,6 @@ export class EditOrderitemOrderComponent implements OnInit {
       this.orderId = BigInt(orderIdParam);
       // console.log("id:" + this.orderId)
     
-      // Fetch the order details based on the ID
       this.orderService.findById(this.orderId).subscribe(
         (result) => {
           // console.log("result:" + result)
@@ -78,13 +75,11 @@ export class EditOrderitemOrderComponent implements OnInit {
   }
 
   updateOrderItem(): void {
-    // Call the service to update the order item
     // const updateRequest = new UpdateOrderItemRequest(this.orderItem);
     
     this.orderItemService.updateOrderItem(this.orderItemId,this.orderItem).subscribe(
       (result) => {
         this.notificationService.showSuccess('Order item updated successfully:');
-        // Optionally, navigate back to the order item list or perform any other action
       },
       (error) => {
         this.notificationService.showError('Error while updating order item'+error);
@@ -101,13 +96,11 @@ export class EditOrderitemOrderComponent implements OnInit {
       product:new Product(),
       order:null
     };
-    // Call the service to update the order item
     // const updateRequest = new UpdateOrderItemRequest(this.orderItem);
     
     this.orderItemService.createOrderItem(this.productId,this.orderId,neworderItem).subscribe(
       (result) => {
         this.notificationService.showSuccess('Order item Added successfully:');
-        // Optionally, navigate back to the order item list or perform any other action
       },
       (error) => {
         this.notificationService.showError('Error While Adding order item:' +error);
@@ -124,11 +117,9 @@ export class EditOrderitemOrderComponent implements OnInit {
         this.orderItemService.deleteOrderItem(this.orderItem.id).subscribe(
           () => {
            this.notificationService.showSuccess('Order item deleted successfully.');
-            // Optionally, navigate back to the order list or perform any other action
           },
           (error) => {
             this.notificationService.showError('Error while deleting order item' +error);
-            // Optionally, show an error message to the user
           }
         );
       }

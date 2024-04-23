@@ -12,8 +12,8 @@ export class MakeOrderOrderComponent implements OnInit{
     id: null,
     createdAt: null,
     createdBy: null,
-    customer: new Customer(), // Use the existing customer object
-    status: '', // Initialize status with an empty string
+    customer: new Customer(), 
+    status: '', 
     total: null,
     itemcount: null,
     orderItem:new OrderItem()
@@ -34,31 +34,28 @@ export class MakeOrderOrderComponent implements OnInit{
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';  }
 
   onSubmit(): void {
-    // Create a new Order object based on the existing order
+    
     const newOrder: Order = {
       id: null,
       createdAt: null,
       createdBy: null,
-      customer: this.order.customer, // Use the existing customer object
+      customer: this.order.customer, 
       status: this.order.status,
       total: this.order.total,
       itemcount: null,
       orderItem:this.order.orderItem
     };
 
-    // Subscribe to the create method of the order service
+    
     this.orderService.create(this.customerId, this.orderItemId,newOrder).subscribe(
       (result) => {
-        // Handle success response
         this.notificationService.showSuccess('Order added Successfully');
       },
       (error) => {
-        // Handle error response
         this.notificationService.showError('Error while adding order:'+ error);
       }
     );
 
-    // Log the original order object
     // console.log(this.order);
   }
 
@@ -73,7 +70,7 @@ export class MakeOrderOrderComponent implements OnInit{
   deleteOrder(): void {
     if (this.order.itemcount && this.order.itemcount > 0) {
       this.notificationService.showError('Cannot delete order with associated order items');
-      return; // Exit the method if there are associated order items
+      return; 
     }
 
     if (this.order.id) {
@@ -81,7 +78,6 @@ export class MakeOrderOrderComponent implements OnInit{
         this.orderService.deleteOrder(this.order.id).subscribe(
           () => {
             this.notificationService.showSuccess('Order deleted successfully');
-            // Optionally, navigate back to the order list or perform any other action
           },
           (error) => {
             this.notificationService.showError('Error deleting order:'+ error);

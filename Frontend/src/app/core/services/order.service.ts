@@ -25,7 +25,7 @@ export class OrderService {
     return this.http.patch<Order>(`${this.baseUrl}/${id}`, order);
   }
 
-  deleteOrder(id: BigInt): Observable<void> {
+  deleteOrder(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
   findAll() {

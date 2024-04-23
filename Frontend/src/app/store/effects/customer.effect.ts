@@ -34,6 +34,7 @@ export class CustomerEffects {
                 return this.customerService.create(action.customer).pipe(
                     map((customer:Customer) => CustomerActions.addCustomerSuccess({ customer })),
                     catchError(error => of(CustomerActions.addCustomerFailure({ error })))
+            
                 );
             })
         );

@@ -3,7 +3,7 @@ import { OrderItem } from "./orderitem";
 import { User } from "./user";
 
 export interface Order {
-    id: BigInt;
+    id: number;
     createdAt: Date;
     createdBy :User;
     customer: Customer;
