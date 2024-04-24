@@ -82,4 +82,5 @@ app:
     path: "classpath:upload/"
 
 
-
+stripe:
+  secretKey: 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

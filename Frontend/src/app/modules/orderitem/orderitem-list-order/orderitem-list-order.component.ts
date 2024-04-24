@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NotificationService, OrderItem, OrderItemService } from '../../../core';
+import { NotificationService, OrderItem, OrderItemService, PaymentService, Product } from '../../../core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { loadStripe } from '@stripe/stripe-js';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-orderitem-list-order',
@@ -12,11 +13,16 @@ import { Store } from '@ngrx/store';
 export class OrderitemListOrderComponent implements OnInit {
 
   orderItems: OrderItem[] = [];
+  // orderItems1: OrderItem[] = [];
+  products:Product[];
   @Input() orderId: number;
   orderItemId:number;
+  totalAmount:number;
 
-
-  constructor(private route:ActivatedRoute, private orderItemService: OrderItemService,private notificationService : NotificationService,private router:Router) 
+  stripePromise = loadStripe(environment.stripe);
+  constructor(private route:ActivatedRoute, private orderItemService: OrderItemService,private notificationService : NotificationService,private router:Router,
+    private paymentService:PaymentService
+  ) 
   {}
 
   ngOnInit(): void {
@@ -24,13 +30,45 @@ export class OrderitemListOrderComponent implements OnInit {
       this.orderId = params['orderId'];
       this.orderItemService.getOrderItemsByOrderId(this.orderId).subscribe((result) => {
         this.orderItems = result;
+        this.calculateTotal();
       });
     });
   }
   canceled(){
     this.router.navigate(["/order"]);
   }
+
   
+  calculateTotal(): void {
+    this.totalAmount = this.orderItems.reduce((total, orderItem) => total + (orderItem.product.price * orderItem.quantity), 0);
+    console.log(this.totalAmount);
+  }
+  
+  async pay(): Promise<void> {
+    // here we create a payment object
+
+    const amountInPaise = this.totalAmount * 100;
+
+    const payment = {
+      name: 'Order ${this.orderId}',
+      currency: 'inr',
+      // amount on cents *10 => to be on dollar
+      amount: amountInPaise,
+      quantity: '1',
+      cancelUrl: 'http://localhost:4200/cancel',
+      successUrl: 'http://localhost:4200/success',
+    };
+
+    const stripe = await this.stripePromise;
+
+    // this is a normal http calls for a backend api
+    this.paymentService.createPayment(payment).subscribe((data: any) => {
+      stripe.redirectToCheckout({
+        sessionId: data.id,
+      });
+    });
+  }
+
 }
 
 

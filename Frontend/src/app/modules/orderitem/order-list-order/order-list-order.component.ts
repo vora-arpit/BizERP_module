@@ -21,7 +21,7 @@ export class OrderListOrderComponent implements OnInit{
   ngOnInit(): void {
     this.orderService.findAll().subscribe((result) => {
       this.orders = result;
-      console.log(this.orders); 
+      // console.log(this.orders); 
       this.setPage(1); 
     });
   }
