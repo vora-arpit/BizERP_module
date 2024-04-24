@@ -7,7 +7,7 @@ export const environment = {
   API_BASE_URL: 'http://localhost:8080',
   OAUTH2_REDIRECT_URI: 'http://localhost:4200/auth/oauth2/redirect',
   ACCESS_TOKEN: 'accessToken',
-  stripe:'pk_test_51P8zDOSH1kxQcZnuJCdVuOqsLVhyp8WG7bKJVzQAXfXu5D2211QXYTupo5ZOc0cbgQFZR53NwKCdXxNun59KDIuO00aQW1rIws'
+  stripe:'Your publisable_key of stripe'
 };
 
 

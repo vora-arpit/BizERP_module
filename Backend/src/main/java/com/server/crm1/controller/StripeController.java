@@ -74,6 +74,6 @@ public class StripeController {
     }
 
     private static void init() {
-        Stripe.apiKey = "sk_test_51P8zDOSH1kxQcZnuqv2iqEUV9chG2PZDq4zClRZQxisnUvDJERXUwMHwWxrSSBfYAifNKB3cB2Z9otx56BbGEEGN00Taov6nPB";
+        Stripe.apiKey = "Your Secreat_key of stripe";
     }
 }
