@@ -2,13 +2,19 @@ package com.server.crm1.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.server.crm1.model.sales.Order;
 import com.server.crm1.model.sales.Order.OrderStatus;
@@ -29,13 +35,13 @@ public class StripeController {
     private static Gson gson = new Gson();
 
     @PostMapping
-    public String paymentWithCheckoutPage(@RequestBody StripeCheckoutPayment payment) throws StripeException {
+    public String paymentWithCheckoutPage(@RequestBody StripeCheckoutPayment payment, @RequestParam("orderId") Integer orderId) throws StripeException {
         init();
 
         SessionCreateParams params = SessionCreateParams.builder()
                 .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl(payment.getSuccessUrl())
+                .setSuccessUrl(payment.getSuccessUrl() + "?orderId=" + orderId)
                 .setCancelUrl(payment.getCancelUrl())
                 .addLineItem(
                         SessionCreateParams.LineItem.builder()
@@ -59,6 +65,8 @@ public class StripeController {
 
         // Send response to the client
         String response = gson.toJson(responseData);
+        System.out.println("orderId:-"+orderId);
+
         System.out.println("response data:-"+response);
         // Check if payment was successful
         if (session.getPaymentStatus().equals("paid")) {
@@ -73,7 +81,84 @@ public class StripeController {
         return response;
     }
 
+
+    // @PostMapping("/success")
+    // public ResponseEntity<String> paymentSuccess(@RequestBody String requestData) {
+    //     try {
+    //         // Parse the request data
+    //         ObjectMapper objectMapper = new ObjectMapper();
+    //         Map<String, Object> requestDataMap = objectMapper.readValue(requestData, Map.class);
+    
+    //         // Extract the payment status
+    //         Map<String, Object> data = (Map<String, Object>) requestDataMap.get("data");
+    //         Map<String, Object> object = (Map<String, Object>) data.get("object");
+    //         String paymentStatus = (String) object.get("payment_status");
+    
+    //         System.out.println("payment status:-"+requestDataMap);
+    //         // System.out.println("orderId:-"+OrderId);
+    //         // If payment status is "paid", update order status to "PAID"
+    //         if ("paid".equals(paymentStatus)) {
+    //             // Extract orderId
+    //             Integer orderId = 104; // Change this to the orderId you receive
+            
+    //             Optional<Order> orderOptional = orderRepository.findById(orderId);
+    //             if (orderOptional.isPresent()) {
+    //                 Order order = orderOptional.get(); // Extract the Order object from Optional
+    //                 order.setStatus(OrderStatus.PAID);
+    //                 orderRepository.save(order);
+    //                 return ResponseEntity.ok("Order status updated successfully");
+    //             }
+    //         }
+            
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    
+    //     return ResponseEntity.badRequest().body("Failed to update order status");
+    // }
+
+
+    @PostMapping("/success")
+public ResponseEntity<String> paymentSuccess(@RequestBody String requestData) {
+    try {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> requestDataMap = objectMapper.readValue(requestData, Map.class);
+
+        Map<String, Object> data = (Map<String, Object>) requestDataMap.get("data");
+        Map<String, Object> object = (Map<String, Object>) data.get("object");
+        String successUrl = (String) object.get("success_url");
+
+        // Extract orderId from successUrl
+        Integer orderId = null;
+        Pattern pattern = Pattern.compile("\\?orderId=(\\d+)");
+        Matcher matcher = pattern.matcher(successUrl);
+        if (matcher.find()) {
+            orderId = Integer.parseInt(matcher.group(1));
+        }
+
+        String paymentStatus = (String) object.get("payment_status");
+
+        if ("paid".equals(paymentStatus) && orderId != null) {
+            Optional<Order> orderOptional = orderRepository.findById(orderId);
+            if (orderOptional.isPresent()) {
+                Order order = orderOptional.get();
+                order.setStatus(OrderStatus.PAID);
+                orderRepository.save(order);
+                return ResponseEntity.ok("Order status updated successfully");
+            }
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return ResponseEntity.badRequest().body("Failed to update order status");
+}
+
+
+
+
     private static void init() {
-        Stripe.apiKey = "Your Secreat_key of stripe";
+        Stripe.apiKey = "sk_test_51P8zDOSH1kxQcZnuqv2iqEUV9chG2PZDq4zClRZQxisnUvDJERXUwMHwWxrSSBfYAifNKB3cB2Z9otx56BbGEEGN00Taov6nPB";
     }
 }

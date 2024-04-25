@@ -55,14 +55,14 @@ export class OrderitemListOrderComponent implements OnInit {
       // amount on cents *10 => to be on dollar
       amount: amountInPaise,
       quantity: '1',
-      cancelUrl: 'http://localhost:4200/cancel',
-      successUrl: 'http://localhost:4200/success',
+      cancelUrl: 'http://localhost:4200/payment/cancel',
+      successUrl: 'http://localhost:4200/payment/success',
     };
 
     const stripe = await this.stripePromise;
 
     // this is a normal http calls for a backend api
-    this.paymentService.createPayment(payment).subscribe((data: any) => {
+    this.paymentService.createPayment(payment,this.orderId).subscribe((data: any) => {
       stripe.redirectToCheckout({
         sessionId: data.id,
       });

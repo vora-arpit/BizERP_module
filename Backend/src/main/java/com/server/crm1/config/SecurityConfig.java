@@ -110,7 +110,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg",
 						"/**/*.html", "/**/*.css", "/**/*.js")
 				.permitAll()
-				.antMatchers("/auth/**", "/oauth2/**")
+				.antMatchers("/auth/**", "/oauth2/**","/payment/success")
 				.permitAll()
 				.anyRequest()
 				.authenticated()
