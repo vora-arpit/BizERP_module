@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IconsModule } from '../../shared/icons.module';
 import { MaterialModule } from '../../shared/material.module';
-import { CheckoutComponent } from './checkout/checkout.component';
+// import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './success/success.component';
 import { CancelComponent } from './cancel/cancel.component';
 import { PaymentRoutingModule } from './payment-routing.module';
@@ -12,7 +12,7 @@ import { PaymentRoutingModule } from './payment-routing.module';
 
 @NgModule({
   declarations: [
-    CheckoutComponent,
+    // CheckoutComponent,
     SuccessComponent,CancelComponent
   ],
   imports: [

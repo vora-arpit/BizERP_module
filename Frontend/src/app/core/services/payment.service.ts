@@ -10,7 +10,8 @@ export class PaymentService {
 
   constructor(private http: HttpClient) { }
     
-  createPayment(payment: any): Observable<any> {
-    return this.http.post(`${environment.API_BASE_URL}/payment`, payment);
+  createPayment(payment: any, orderId: number): Observable<any> {
+    return this.http.post(`${environment.API_BASE_URL}/payment?orderId=${orderId}`, payment);
   }
+  
 }
