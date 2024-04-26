@@ -69,13 +69,8 @@ export class MakeOrderOrderComponent implements OnInit{
 
   deleteOrder(): void {
     if (this.order.itemcount && this.order.itemcount > 0) {
-<<<<<<< HEAD
-      console.log('Cannot delete order with associated order items');
-      return; // Exit the method if there are associated order items
-=======
       this.notificationService.showError('Cannot delete order with associated order items');
       return; 
->>>>>>> ngrx
     }
 
     if (this.order.id) {
