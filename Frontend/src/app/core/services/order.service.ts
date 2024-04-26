@@ -12,7 +12,7 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-  findById(id: BigInt): Observable<Order> {
+  findById(id: number): Observable<Order> {
     return this.http.get<Order>(`${this.baseUrl}/${id}`)
   }
   create(CustomerId:Number,orderItemId:Number,order: Order): Observable<Order> {

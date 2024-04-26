@@ -14,6 +14,8 @@ export const environment = {
 export const DEFAULT_PRODUCT_IMAGE_PATH = '/assets/images/product.png';
 export const DEFAULT_AVATAR_PATH = '/assets/images/avatar.png';
 
+export const APP_LOGO="../logo1.png"
+
 
 /*
  * For easier debugging in development mode, you can import the following file

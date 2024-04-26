@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // import { CheckoutComponent } from './checkout/checkout.component';
 import { CancelComponent } from './cancel/cancel.component';
-import { SuccessComponent } from './success/success.component';
+import { PaymentSuccessComponent } from './success/success.component';
 
 const routes: Routes = [
   // {
@@ -17,8 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'success',
-    component: SuccessComponent,
-    data:{title: 'success'}
+    component: PaymentSuccessComponent,
+    // data:{title: 'success'}
   },
 ];
 

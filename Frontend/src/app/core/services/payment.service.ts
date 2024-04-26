@@ -13,5 +13,8 @@ export class PaymentService {
   createPayment(payment: any, orderId: number): Observable<any> {
     return this.http.post(`${environment.API_BASE_URL}/payment?orderId=${orderId}`, payment);
   }
-  
+
+  generateInvoice(invoiceData: any): Observable<any> {
+    return this.http.post(`${environment.API_BASE_URL}/invoice/generate-invoice`, invoiceData, { responseType: 'blob' });
+  }
 }

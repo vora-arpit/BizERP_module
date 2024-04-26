@@ -13,17 +13,20 @@ import { environment } from '../../../../environments/environment.development';
 export class OrderitemListOrderComponent implements OnInit {
 
   orderItems: OrderItem[] = [];
-  // orderItems1: OrderItem[] = [];
-  products:Product[];
+  products: Product[];
   @Input() orderId: number;
-  orderItemId:number;
-  totalAmount:number;
+  orderItemId: number;
+  totalAmount: number;
 
   stripePromise = loadStripe(environment.stripe);
-  constructor(private route:ActivatedRoute, private orderItemService: OrderItemService,private notificationService : NotificationService,private router:Router,
-    private paymentService:PaymentService
-  ) 
-  {}
+  
+  constructor(
+    private route: ActivatedRoute, 
+    private orderItemService: OrderItemService,
+    private notificationService: NotificationService,
+    private router: Router,
+    private paymentService: PaymentService
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -34,25 +37,22 @@ export class OrderitemListOrderComponent implements OnInit {
       });
     });
   }
+
   canceled(){
     this.router.navigate(["/order"]);
   }
 
-  
   calculateTotal(): void {
     this.totalAmount = this.orderItems.reduce((total, orderItem) => total + (orderItem.product.price * orderItem.quantity), 0);
     console.log(this.totalAmount);
   }
   
   async pay(): Promise<void> {
-    // here we create a payment object
-
     const amountInPaise = this.totalAmount * 100;
 
     const payment = {
-      name: 'Order ${this.orderId}',
+      name: `Order ${this.orderId}`,
       currency: 'inr',
-      // amount on cents *10 => to be on dollar
       amount: amountInPaise,
       quantity: '1',
       cancelUrl: 'http://localhost:4200/payment/cancel',
@@ -61,15 +61,14 @@ export class OrderitemListOrderComponent implements OnInit {
 
     const stripe = await this.stripePromise;
 
-    // this is a normal http calls for a backend api
-    this.paymentService.createPayment(payment,this.orderId).subscribe((data: any) => {
+    this.paymentService.createPayment(payment, this.orderId).subscribe((data: any) => {
       stripe.redirectToCheckout({
         sessionId: data.id,
       });
     });
   }
-
 }
+
 
 
 

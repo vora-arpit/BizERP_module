@@ -9,7 +9,7 @@ import { NotificationService, Order, OrderItem, OrderItemService, OrderService, 
 })
 export class EditOrderitemOrderComponent implements OnInit {
   orderItemId: bigint;
-  orderId:BigInt;
+  orderId:number;
   orderItem: OrderItem={
     id:null,
     price:1000,
@@ -45,7 +45,7 @@ export class EditOrderitemOrderComponent implements OnInit {
   
     const orderIdParam = this.route.snapshot.paramMap.get('orderid');
     if (orderIdParam) {
-      this.orderId = BigInt(orderIdParam);
+      this.orderId = Number(orderIdParam);
       // console.log("id:" + this.orderId)
     
       this.orderService.findById(this.orderId).subscribe(

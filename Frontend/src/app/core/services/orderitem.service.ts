@@ -19,7 +19,7 @@ export class OrderItemService {
     return this.http.get<OrderItem[]>(`${this.baseUrl}/order/${id}`);
   }
 
-  createOrderItem(productId:number,orderId:BigInt ,orderItem: OrderItem): Observable<OrderItem> {
+  createOrderItem(productId:number,orderId:number ,orderItem: OrderItem): Observable<OrderItem> {
     return this.http.post<OrderItem>(`${this.baseUrl}/${productId}/${orderId}`, orderItem);
   }
 

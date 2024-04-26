@@ -82,42 +82,6 @@ public class StripeController {
     }
 
 
-    // @PostMapping("/success")
-    // public ResponseEntity<String> paymentSuccess(@RequestBody String requestData) {
-    //     try {
-    //         // Parse the request data
-    //         ObjectMapper objectMapper = new ObjectMapper();
-    //         Map<String, Object> requestDataMap = objectMapper.readValue(requestData, Map.class);
-    
-    //         // Extract the payment status
-    //         Map<String, Object> data = (Map<String, Object>) requestDataMap.get("data");
-    //         Map<String, Object> object = (Map<String, Object>) data.get("object");
-    //         String paymentStatus = (String) object.get("payment_status");
-    
-    //         System.out.println("payment status:-"+requestDataMap);
-    //         // System.out.println("orderId:-"+OrderId);
-    //         // If payment status is "paid", update order status to "PAID"
-    //         if ("paid".equals(paymentStatus)) {
-    //             // Extract orderId
-    //             Integer orderId = 104; // Change this to the orderId you receive
-            
-    //             Optional<Order> orderOptional = orderRepository.findById(orderId);
-    //             if (orderOptional.isPresent()) {
-    //                 Order order = orderOptional.get(); // Extract the Order object from Optional
-    //                 order.setStatus(OrderStatus.PAID);
-    //                 orderRepository.save(order);
-    //                 return ResponseEntity.ok("Order status updated successfully");
-    //             }
-    //         }
-            
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    
-    //     return ResponseEntity.badRequest().body("Failed to update order status");
-    // }
-
-
     @PostMapping("/success")
 public ResponseEntity<String> paymentSuccess(@RequestBody String requestData) {
     try {
