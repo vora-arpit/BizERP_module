@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CustomerEditContainer } from './customer-edit/customer-edit.container';
+// import { CustomerEditContainer } from './customer-edit/customer-edit.container';
 import { CustomerResolver } from './customer.resolver';
 import { CustomerListContainer } from './customer-list/customer-list.container';
+import { CustomerEditComponent } from './customer-edit/customer-edit.component';
 
 const routes: Routes = [
   {
@@ -12,12 +13,12 @@ const routes: Routes = [
   },
   {
     path: 'new',
-    component: CustomerEditContainer,
+    component: CustomerEditComponent,
     data: { title: 'New Customer' }
   },
   {
     path: ':id',
-    component: CustomerEditContainer,
+    component: CustomerEditComponent,
     resolve: {
       customer: CustomerResolver
     },

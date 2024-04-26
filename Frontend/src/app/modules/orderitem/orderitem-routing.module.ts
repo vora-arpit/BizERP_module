@@ -17,7 +17,7 @@ const routes: Routes = [
   {
     path: '',
     component: OrderListOrderComponent,
-    data: { title: 'Order Item List' }
+    data: { title: 'Order List' }
   },
   {
     path: 'new',
@@ -25,7 +25,7 @@ const routes: Routes = [
     data: { title: 'New Order' }
   },
   {
-    path: ':orderid',
+    path: ':orderId',
     component: OrderitemListOrderComponent,
     data:{title: 'List of OrderItems'}
   },

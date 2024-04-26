@@ -36,6 +36,7 @@ public class OrderService {
             order.setCustomer(customer);
             OrderItem orderItem=orderItemService.getOrderItemById(orderItemId);
             order.setOrderItem(orderItem);
+            order.setStatus(Order.OrderStatus.STARTED);
 
             return orderRepository.save(order);
         // } catch (Exception e) {

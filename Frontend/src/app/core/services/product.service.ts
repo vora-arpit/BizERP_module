@@ -20,10 +20,10 @@ export class ProductService {
   }
 
   findAll(text: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.rootPath}?filter=${text}`)
-      .pipe(
-        catchError(this.handleError)
-      );
+    
+    return this.http.get<Product[]>(`${this.rootPath}?filter=${text}`).pipe(
+      catchError(this.handleError)
+    );
   }
 
   create(product: Product): Observable<Product> {
@@ -34,7 +34,7 @@ export class ProductService {
   }
 
   update(id: bigint, product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.rootPath}/${id}`, product)
+    return this.http.patch<Product>(`${this.rootPath}/${id}`, product)
       .pipe(
         catchError(this.handleError)
       );
@@ -47,8 +47,8 @@ export class ProductService {
       );
   }
 
-  private handleError(error: any): Observable<never> {
-    console.error('An error occurred:', error);
-    return throwError('Something went wrong; please try again later.');
+  private handleError(error: any) {
+    console.error("An error occurred", error); // For demo purposes only
+    return throwError(error.message || "Server error");
   }
 }

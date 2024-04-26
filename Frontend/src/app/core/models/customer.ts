@@ -1,7 +1,7 @@
 import { User } from './user';
 
 export class Customer {
-  id!: number;
+  id!: bigint;
   createdAt!: Date;
   birthdate!: Date;
   createdBy!: User;

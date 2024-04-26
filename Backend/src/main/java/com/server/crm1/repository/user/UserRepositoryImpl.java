@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.server.crm1.model.users.User;
+
+
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 
 public class UserRepositoryImpl implements UserRepositoryCustom {
@@ -53,6 +55,9 @@ public List<User> search(String filter) {
                 return user;
             });
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> ngrx
 
-}
+:diffg RE}

@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-// import { Customer, CustomerService } from '@app/_core';
 import { Subject, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { Customer, CustomerService } from '../../../core';
+import {  debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Customer, } from '../../../core';
+import { Store } from '@ngrx/store';
+import { getCustomer } from '../../../store/actions/customer.action';
+import { getAllCustomers } from '../../../store/selectors/customer.selector';
 
 @Component({
   selector: 'app-customer-list-container',
@@ -20,21 +22,28 @@ export class CustomerListContainer implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
 
   constructor(
-    private customerService: CustomerService
+    private store: Store
   ) { }
 
   ngOnInit() {
     this.subscription.add(
       this.filter$.pipe(
-        //debounceTime(300),
+        debounceTime(300),
         distinctUntilChanged(),
-        switchMap(text => this.customerService.findAll(text))
+        // switchMap(text => this.customerService.findAll(text))
       ).subscribe(
-        results => this.customers = results
+        text => {
+          this.store.dispatch(getCustomer());
+        }
       )
     )
     this.filter$.next('')
-    this.customerService.printAllCustomers();
+    
+    this.store.select(getAllCustomers).subscribe(
+      (customers) => this.customers = customers
+    )
+    
+
   }
 
   filter(text: string) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
-import { Order, OrderItem, OrderItemService, OrderService, Product } from '../../../core';
+import { NotificationService, Order, OrderItem, OrderItemService, OrderService, Product } from '../../../core';
 
 @Component({
   selector: 'app-edit-orderitem-order',
@@ -9,7 +9,7 @@ import { Order, OrderItem, OrderItemService, OrderService, Product } from '../..
 })
 export class EditOrderitemOrderComponent implements OnInit {
   orderItemId: bigint;
-  orderId:BigInt;
+  orderId:number;
   orderItem: OrderItem={
     id:null,
     price:1000,
@@ -24,39 +24,37 @@ export class EditOrderitemOrderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private orderItemService: OrderItemService,private router:Router,private orderService:OrderService
+    private orderItemService: OrderItemService,private router:Router,private orderService:OrderService,
+    private notificationService:NotificationService
   ) { }
 
   ngOnInit(): void {
-    // Retrieve the order item ID from the route parameters
     const orderItemIdParam = this.route.snapshot.paramMap.get('orderItemId');
     if (orderItemIdParam) {
       this.orderItemId = BigInt(orderItemIdParam);
     
-      // Fetch the order item details based on the ID
       this.orderItemService.getOrderItemById(this.orderItemId).subscribe(
         (result) => {
           this.orderItem = result;
         },
         (error) => {
-          console.error('Error fetching order item:', error);
+          this.notificationService.showError('Error fetching order item:' +error);
         }
       );
     }
   
     const orderIdParam = this.route.snapshot.paramMap.get('orderid');
     if (orderIdParam) {
-      this.orderId = BigInt(orderIdParam);
+      this.orderId = Number(orderIdParam);
       // console.log("id:" + this.orderId)
     
-      // Fetch the order details based on the ID
       this.orderService.findById(this.orderId).subscribe(
         (result) => {
           // console.log("result:" + result)
           this.order = result;
         },
         (error) => {
-          console.error('Error fetching order item:', error);
+          this.notificationService.showError('Error fetching order item:' +error);
         }
       );
     }
@@ -77,16 +75,14 @@ export class EditOrderitemOrderComponent implements OnInit {
   }
 
   updateOrderItem(): void {
-    // Call the service to update the order item
     // const updateRequest = new UpdateOrderItemRequest(this.orderItem);
     
     this.orderItemService.updateOrderItem(this.orderItemId,this.orderItem).subscribe(
       (result) => {
-        console.log('Order item updated successfully:');
-        // Optionally, navigate back to the order item list or perform any other action
+        this.notificationService.showSuccess('Order item updated successfully:');
       },
       (error) => {
-        console.error('Error updating order item:', error);
+        this.notificationService.showError('Error while updating order item'+error);
       }
     );
   }
@@ -100,16 +96,14 @@ export class EditOrderitemOrderComponent implements OnInit {
       product:new Product(),
       order:null
     };
-    // Call the service to update the order item
     // const updateRequest = new UpdateOrderItemRequest(this.orderItem);
     
     this.orderItemService.createOrderItem(this.productId,this.orderId,neworderItem).subscribe(
       (result) => {
-        console.log('Order item Added successfully:');
-        // Optionally, navigate back to the order item list or perform any other action
+        this.notificationService.showSuccess('Order item Added successfully:');
       },
       (error) => {
-        console.error('Error While Adding order item:', error);
+        this.notificationService.showError('Error While Adding order item:' +error);
       }
     );
   }
@@ -122,17 +116,15 @@ export class EditOrderitemOrderComponent implements OnInit {
       if (confirm('Are you sure you want to delete this order item?')) {
         this.orderItemService.deleteOrderItem(this.orderItem.id).subscribe(
           () => {
-            console.log('Order item deleted successfully.');
-            // Optionally, navigate back to the order list or perform any other action
+           this.notificationService.showSuccess('Order item deleted successfully.');
           },
           (error) => {
-            console.error('Error deleting order item:', error);
-            // Optionally, show an error message to the user
+            this.notificationService.showError('Error while deleting order item' +error);
           }
         );
       }
     } else {
-      console.warn('Order item ID is missing.');
+      this.notificationService.showError('Order item ID is missing.');
     }
   }
 

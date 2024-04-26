@@ -1,4 +1,4 @@
-<h3 class="text-center mgb-med">Recover Your Password</h3>
+<!-- <h3 class="text-center mgb-med">Recover Your Password</h3>
 <div class="register">
   <form class="login__form mgb-med" [formGroup]="forgotForm" (ngSubmit)="verify()">
     <label for="email" class="login__label">Email Address</label>
@@ -18,4 +18,22 @@
     <a routerLink="/auth/login">Go to Login page</a>
     <a routerLink="/auth/register">Register</a>
   </div>
+</div> -->
+
+
+<h3 class="text-center mgb-med">Recover Your Password</h3>
+<div class="register">
+  <form class="login__form mgb-med" [formGroup]="forgotForm">
+    <label for="email" class="login__label">Email Address</label>
+    <div class="input-group mgb-small">
+      <span class="input-group__icon material-icons">email</span>
+      <input type="email" class="input-group__input" id="email" formControlName="email" placeholder="Enter your email address">
+    </div>
+    <button type="button" (click)="onSubmit()" [disabled]="forgotForm.invalid" class="btn btn-primary btn-block">Send Verification Code</button>
+  </form>
+  <div class="forgot__links">
+    <a routerLink="/auth/login">Go to Login page</a>
+    <a routerLink="/auth/register">Register</a>
+  </div>
 </div>
+

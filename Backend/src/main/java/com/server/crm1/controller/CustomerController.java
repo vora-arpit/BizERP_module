@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -37,11 +38,17 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 
+	// @GetMapping
+	// public List<Customer> search(@RequestParam("filter") String filter) {
+	// 	User currentUser = userService.getCurrentUser();
+	// 	return customerRepo.search(filter, currentUser.getId());
+	// }
+
 	@GetMapping
-	public List<Customer> search(@RequestParam("filter") String filter) {
-		User currentUser = userService.getCurrentUser();
-		return customerRepo.search(filter, currentUser.getId());
+	public List<Customer> getAllCustomers() {
+		return customerRepo.findAll();
 	}
+	
 
 	@GetMapping("/{id}")
 	public Customer findById(@PathVariable Integer id) {

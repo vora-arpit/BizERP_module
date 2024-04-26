@@ -40,6 +40,11 @@ const routes: Routes = [
           import('./modules/orderitem/orderitem.module').then(m => m.OrderitemModule)
       },
       {
+        path:'payment',
+        loadChildren:()=>
+          import ('./modules/payment/payment.module').then(m=>m.PaymentModule)
+      },
+      {
         path: 'users',
         data: {
           roles: ['ADMIN']

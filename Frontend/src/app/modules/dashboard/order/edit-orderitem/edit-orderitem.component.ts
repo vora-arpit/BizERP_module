@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class EditOrderitemComponent implements OnInit {
   orderItemId: bigint;
-  orderId:BigInt;
+  orderId:number;
   orderItem: OrderItem={
     id:null,
     price:1000,
@@ -49,7 +49,7 @@ export class EditOrderitemComponent implements OnInit {
   
     const orderIdParam = this.route.snapshot.paramMap.get('orderid');
     if (orderIdParam) {
-      this.orderId = BigInt(orderIdParam);
+      this.orderId = Number(orderIdParam);
       // console.log("id:" + this.orderId)
     
       // Fetch the order details based on the ID

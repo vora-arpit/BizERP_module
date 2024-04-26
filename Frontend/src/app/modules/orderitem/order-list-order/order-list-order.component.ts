@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Output} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order, OrderService } from '../../../core';
 
 @Component({
@@ -9,23 +9,29 @@ import { Order, OrderService } from '../../../core';
 })
 export class OrderListOrderComponent implements OnInit{
   orders: Order[] = [];
-  pagedOrders: Order[] = []; // Subset of orders to display per page
-  currentPage = 1; // Current page number
-  itemsPerPage = 5; // Number of items to display per page
+  pagedOrders: Order[] = []; 
+  currentPage = 1; 
+  itemsPerPage = 5;
+  @Output() orderId:number;
 
-  constructor(private route: ActivatedRoute, private orderService: OrderService) { }
+  constructor(private route: ActivatedRoute, private orderService: OrderService,
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
     this.orderService.findAll().subscribe((result) => {
       this.orders = result;
-      console.log(this.orders); // Log orders array to check if it contains data
-      this.setPage(1); // Initialize pagedOrders when orders are available
+      // console.log(this.orders); 
+      this.setPage(1); 
     });
   }
   
-  
+  goToOrderItemList(orderId: number): void {
+    this.router.navigate(['/order', orderId]);
+    
+  }
 
-  // Function to set the current page
+  
   setPage(page: number) {
     if (page < 1 || page > this.totalPages()) {
       return;
@@ -36,7 +42,7 @@ export class OrderListOrderComponent implements OnInit{
     this.pagedOrders = this.orders.slice(startIndex, endIndex);
   }
 
-  // Function to get the total number of pages
+  
   totalPages(): number {
     return Math.ceil(this.orders.length / this.itemsPerPage);
   }
@@ -48,10 +54,10 @@ export class OrderListOrderComponent implements OnInit{
     this.pagedOrders = this.orders.slice(startIndex, endIndex);
   }
 
-  // Event handler for page change event from MatPaginator
+  
   onPageChange(event: any): void {
-    this.currentPage = event.pageIndex; // Update currentPage
-    this.itemsPerPage = event.pageSize; // Update itemsPerPage
-    this.updatePagedOrders(); // Update pagedOrders based on new pagination settings
+    this.currentPage = event.pageIndex; 
+    this.itemsPerPage = event.pageSize; 
+    this.updatePagedOrders(); 
   }
 }
