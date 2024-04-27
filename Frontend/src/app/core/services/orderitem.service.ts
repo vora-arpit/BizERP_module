@@ -11,7 +11,7 @@ export class OrderItemService {
 
   constructor(private http: HttpClient) { }
 
-  getOrderItemById(id: bigint): Observable<OrderItem> {
+  getOrderItemById(id: BigInt): Observable<OrderItem> {
     return this.http.get<OrderItem>(`${this.baseUrl}/${id}`);
   }
 
@@ -19,12 +19,12 @@ export class OrderItemService {
     return this.http.get<OrderItem[]>(`${this.baseUrl}/order/${id}`);
   }
 
-  createOrderItem(productId:number,orderId:number ,orderItem: OrderItem): Observable<OrderItem> {
-    return this.http.post<OrderItem>(`${this.baseUrl}/${productId}/${orderId}`, orderItem);
+  createOrderItem(productId:BigInt,orderId:number ,quantity:number,orderItem: OrderItem): Observable<OrderItem> {
+    return this.http.post<OrderItem>(`${this.baseUrl}/${productId}/${orderId}/${quantity}`, orderItem);
   }
 
-  updateOrderItem(id: bigint, orderItem: OrderItem): Observable<OrderItem> {
-    return this.http.put<OrderItem>(`${this.baseUrl}/${id}`, orderItem);
+  updateOrderItem(id: BigInt, quantity: number,productId:BigInt,orderId:number,orderItem:OrderItem): Observable<OrderItem> {
+    return this.http.put<OrderItem>(`${this.baseUrl}/${id}/${productId}/${quantity}/${orderId}`,orderItem);
   }
 
   deleteOrderItem(id: bigint): Observable<void> {

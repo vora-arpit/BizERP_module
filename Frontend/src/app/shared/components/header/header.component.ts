@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output ,HostListener} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
@@ -47,5 +47,7 @@ export class HeaderComponent {
   logoutClicked() {
     this.logout.emit(null);
   }
+
+  
 
 }

@@ -1,5 +1,6 @@
 package com.server.crm1.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,33 +27,34 @@ public class OrderItemService {
     @Autowired
     private ProductService1 productService1;
 
-    public OrderItem addOrderItem(Long productId,Integer orderId,OrderItem orderItem) {
-        Order order=orderService.getOrderById(orderId);
-            orderItem.setOrder(order);
-        Product product=productService1.getProductById(productId);
-            orderItem.setProduct(product);
+    public OrderItem addOrderItem(Long productId, Integer orderId, BigDecimal quantity, OrderItem orderItem) {
+        Order order = orderService.getOrderById(orderId);
+        orderItem.setOrder(order);
+        
+        Product product = productService1.getProductById(productId);
+        orderItem.setProduct(product);
+        
+        orderItem.setQuantity(quantity);
+        
+        BigDecimal price = product.getPrice().multiply(quantity); // Use multiply method
+        orderItem.setPrice(price);
+        
         return orderItemRepository.save(orderItem);
     }
 
-    // public void setOrderId(Long orderItemId, Integer orderId) {
-    //     OrderItem orderItem = orderItemRepository.findById(orderItemId).orElse(null);
-    //     if (orderItem != null) {
-    //         orderItem.setOrderId(orderId);
-    //         orderItemRepository.save(orderItem);
-    //     } else {
-    //         throw new ResourceNotFoundException("OrderItem", "id", orderItemId);
-    //         }
-    //     }
+    public OrderItem updateOrderItem(Long orderItemId,Long productId,BigDecimal quantity,Integer orderId, OrderItem updatedOrderItem) {
+        Order order = orderService.getOrderById(orderId);
+        updatedOrderItem.setOrder(order);
 
-    public OrderItem updateOrderItem(Long orderItemId, OrderItem updatedOrderItem) {
-        OrderItem existingOrderItem = getOrderItemById(orderItemId);
-        if (existingOrderItem != null) {
-            existingOrderItem.setProduct(updatedOrderItem.getProduct());
-            existingOrderItem.setQuantity(updatedOrderItem.getQuantity());
-            existingOrderItem.setPrice(updatedOrderItem.getPrice());
-            return orderItemRepository.save(existingOrderItem);
-        }
-        return null; // OrderItem with given ID not found
+        Product product=productService1.getProductById(productId);
+        updatedOrderItem.setProduct(product);
+
+        updatedOrderItem.setQuantity(quantity);
+
+        BigDecimal price = product.getPrice().multiply(quantity); // Use multiply method
+        updatedOrderItem.setPrice(price);
+        
+        return orderItemRepository.save(updatedOrderItem);
     }
 
     public List<OrderItem> getAllOrderItems() {

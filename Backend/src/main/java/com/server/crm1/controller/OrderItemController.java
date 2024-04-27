@@ -1,5 +1,6 @@
 package com.server.crm1.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -46,14 +47,14 @@ public class OrderItemController {
         return orderItemService.getOrderItemsByOrder(order);
     }
 
-    @PostMapping("/{productId}/{orderId}")
-    public OrderItem createOrderItem(@PathVariable Long productId,@PathVariable Integer orderId, OrderItem orderItem) {
-        return orderItemService.addOrderItem(productId,orderId,orderItem);
+    @PostMapping("/{productId}/{orderId}/{quantity}")
+    public OrderItem createOrderItem(@PathVariable Long productId,@PathVariable Integer orderId,@PathVariable BigDecimal quantity,OrderItem orderItem) {
+        return orderItemService.addOrderItem(productId,orderId,quantity,orderItem);
     }
 
-    @PutMapping("/{id}")
-    public OrderItem updateOrderItem(@PathVariable Long id, @Valid @RequestBody OrderItem orderItemRequest ) {
-        return orderItemService.updateOrderItem(id, orderItemRequest);
+    @PutMapping("/{id}/{productId}/{quantity}/{orderId}")
+    public OrderItem updateOrderItem(@PathVariable Long id, @PathVariable Long productId,@PathVariable BigDecimal quantity,@PathVariable Integer orderId,OrderItem orderItemRequest ) {
+        return orderItemService.updateOrderItem(id,productId,quantity,orderId,orderItemRequest);
     }
 
     // @PutMapping("/orderid")

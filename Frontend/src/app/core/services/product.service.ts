@@ -12,7 +12,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  findById(id: bigint): Observable<Product> {
+  findById(id: BigInt): Observable<Product> {
     return this.http.get<Product>(`${this.rootPath}/${id}`)
       .pipe(
         catchError(this.handleError)

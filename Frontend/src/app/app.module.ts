@@ -9,7 +9,6 @@ import { CoreModule, OrderItemService, OrderService, ProductService } from './co
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { ReverseStr } from './shared/pipes/reverse.pipe';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';

@@ -23,7 +23,7 @@ export class EditOrderitemComponent implements OnInit {
   showModal: boolean = false;
   order:Order;
   isAddMode: boolean;
-  productId:number;
+  productId:BigInt;
 
   constructor(
     private route: ActivatedRoute,
@@ -83,15 +83,15 @@ export class EditOrderitemComponent implements OnInit {
     // Call the service to update the order item
     // const updateRequest = new UpdateOrderItemRequest(this.orderItem);
     
-    this.orderItemService.updateOrderItem(this.orderItemId,this.orderItem).subscribe(
-      (result) => {
-        console.log('Order item updated successfully:');
-        // Optionally, navigate back to the order item list or perform any other action
-      },
-      (error) => {
-        console.error('Error updating order item:', error);
-      }
-    );
+    // this.orderItemService.updateOrderItem(this.orderItemId,this.orderItem).subscribe(
+    //   (result) => {
+    //     console.log('Order item updated successfully:');
+    //     // Optionally, navigate back to the order item list or perform any other action
+    //   },
+    //   (error) => {
+    //     console.error('Error updating order item:', error);
+    //   }
+    // );
   }
 
   
@@ -106,15 +106,15 @@ export class EditOrderitemComponent implements OnInit {
     // Call the service to update the order item
     // const updateRequest = new UpdateOrderItemRequest(this.orderItem);
     
-    this.orderItemService.createOrderItem(this.productId,this.orderId,neworderItem).subscribe(
-      (result) => {
-        console.log('Order item Added successfully:');
-        // Optionally, navigate back to the order item list or perform any other action
-      },
-      (error) => {
-        console.error('Error While Adding order item:', error);
-      }
-    );
+    // this.orderItemService.createOrderItem(this.productId,this.orderId,neworderItem).subscribe(
+    //   (result) => {
+    //     console.log('Order item Added successfully:');
+    //     // Optionally, navigate back to the order item list or perform any other action
+    //   },
+    //   (error) => {
+    //     console.error('Error While Adding order item:', error);
+    //   }
+    // );
   }
 
   canceled(){
