@@ -28,6 +28,8 @@ export class UserEditContainer implements OnInit {
     private notificationService: NotificationService
   ) { }
 
+
+
   ngOnInit() {
     this.user = this.route.snapshot.data['user'];
     this.roles$ = this.userService.getAllRoles();
