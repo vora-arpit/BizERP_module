@@ -55,8 +55,8 @@ spring:
     mail:
         host: smtp.ethereal.email
         port: 587
-        username: florencio56@ethereal.email
-        password: NU5qKX7WJcerx225TQ
+        username: grady.feest17@ethereal.email
+        password: ThsJJgYtwkcDkGTap3
         properties:
           mail:
             smtp:

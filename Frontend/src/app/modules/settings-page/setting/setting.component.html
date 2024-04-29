@@ -1,0 +1,27 @@
+<div class="grid-2">
+    <div class="panel white col">
+      <h4>User Info</h4>
+      <form class="form mgt-small" [formGroup]="profileForm" (ngSubmit)="updateProfile()" novalidate>
+        <label for="name">Name<span class="text-red">*</span></label>
+        <input type="text" id="name" formControlName="name" >
+        <div *ngIf="profileForm.controls['name'].invalid && (profileForm.controls['name'].dirty || profileForm.controls['name'].touched)">
+          <div *ngIf="profileForm.controls['name'].errors?.['required']" class="input-error-msg">
+            Name is required
+          </div>
+        </div>  
+  
+        <label for="email" class="mgt-small">Email</label>
+        <span>{{user?.email}}{{user?.email_verified}}</span>
+        <!-- <input type="text" id="email" formControlName="email" > -->
+
+        
+        <div class="mgt-med">
+          <img [src]="user?.imageUrl ? user?.imageUrl : '/assets/images/nouser.png'" style="height: 200px">
+          <textarea rows="3" formControlName="imageUrl">{{user?.imageUrl}}</textarea>
+        </div>
+        <div class="text-right mgt-small">
+            <a class="btn btn-secondary" (click)="canceled()">Cancel</a>
+            <button class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>

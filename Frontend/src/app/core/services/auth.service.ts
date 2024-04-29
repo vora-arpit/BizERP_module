@@ -80,4 +80,14 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem(this.ITEM_KEY));
     return user ? user.token : null;
   }
+
+  updateProfile(user: User): Observable<User> {
+    return this.http.put<User>(`${this.rootPath}/profile`, user).pipe(
+      tap(updatedUser => {
+        // Update the current user data
+        localStorage.setItem(this.ITEM_KEY, JSON.stringify(updatedUser));
+        this.currentUserSubject.next(updatedUser);
+      })
+    );
+  }
 }

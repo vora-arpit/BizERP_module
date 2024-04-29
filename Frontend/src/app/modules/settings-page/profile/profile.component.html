@@ -1,0 +1,25 @@
+<div class="center-content">
+    <section>
+      
+      <div class="mgt-med">
+        <img [src]="user.imageUrl ? user.imageUrl : '/assets/images/nouser.png'" alt="User Image" style="height: 200px; border-radius: 50%">
+      </div>
+
+      <div style="padding-left: 17px;">
+        <label for="name">User Name :- </label>
+        <span>{{ user?.name }}</span><br>
+      </div>
+      
+      <div style="margin-left: -15px;">
+        <label for="email" class="mgt-small">Email :- </label>
+        <span>{{ user?.email }}</span>
+    </div>
+
+    <div style="margin-left: 25px;">
+      <label for="roles" class="mgt-small">Your Roles :- </label>
+      <span>{{ user?.roles }}</span>
+  </div>
+     
+    </section>
+  </div>
+  

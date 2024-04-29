@@ -45,6 +45,11 @@ const routes: Routes = [
           import ('./modules/payment/payment.module').then(m=>m.PaymentModule)
       },
       {
+        path:'profile',
+        loadChildren:()=>
+          import ('./modules/settings-page/settings-page.module').then(m=>m.SettingsPageModule)
+      },
+      {
         path: 'users',
         data: {
           roles: ['ADMIN']

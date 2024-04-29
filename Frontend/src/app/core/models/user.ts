@@ -6,4 +6,5 @@ export class User {
     roles!: string[];
     imageUrl?: string;
     token?: string;
+    email_verified?:boolean;
 }
