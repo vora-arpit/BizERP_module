@@ -82,3 +82,16 @@ app:
     path: "classpath:upload/"
 
 
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+    endpoint:
+      prometheus:
+        enabled: true
+      materics:
+        enabled: true
+
+
