@@ -9,6 +9,7 @@ public class Role {
 	public static final String DEFAULT = "USER";
 	public static final String ADMIN = "ADMIN";
 	public static final String MANAGER = "MANAGER";
+	public static final String SUPERADMIN="SUPER_ADMIN";
 
 	@Id
 	public String name;

@@ -3,6 +3,9 @@ package com.server.crm1.controller;
 import com.server.crm1.model.sales.Product;
 import com.server.crm1.payload.ApiResponse;
 import com.server.crm1.service.ProductService1;
+import com.server.crm1.service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,7 +17,7 @@ public class ProductController1 {
 
     private final ProductService1 productService;
 
-
+    
     public ProductController1(ProductService1 productService) {
         this.productService = productService;
     }

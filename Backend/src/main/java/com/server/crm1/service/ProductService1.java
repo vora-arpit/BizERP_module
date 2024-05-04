@@ -1,5 +1,6 @@
 package com.server.crm1.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.server.crm1.exception.ResourceNotFoundException;
 import com.server.crm1.model.sales.Product;
+import com.server.crm1.model.users.User;
 import com.server.crm1.repository.product.ProductRepository1;
 
 @Service
@@ -16,7 +18,13 @@ public class ProductService1 {
     @Autowired
     private ProductRepository1 productRepository;
 
+    @Autowired
+    private UserService userService;
+
+
     public Product addProduct(Product product) {
+        product.setCreatedAt(new Date());
+        product.setCreatedBy(userService.getCurrentUser());
         return productRepository.save(product);
     }
 
@@ -28,13 +36,16 @@ public class ProductService1 {
             existingProduct.setName(updatedProduct.getName());
             existingProduct.setPrice(updatedProduct.getPrice());
             existingProduct.setQuantityInStock(updatedProduct.getQuantityInStock());
+            existingProduct.setCreatedAt(existingProduct.getCreatedAt());
+            existingProduct.setCreatedBy(existingProduct.getCreatedBy());
             return productRepository.save(existingProduct);
         }
         return null; // Product with given ID not found
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        User currentUser=userService.getCurrentUser();
+        return productRepository.findByCreatedBy(currentUser);
     }
 
     public Product getProductById(Long productId) {

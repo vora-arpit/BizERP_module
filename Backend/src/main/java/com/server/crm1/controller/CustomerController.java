@@ -41,12 +41,14 @@ public class CustomerController {
 	// @GetMapping
 	// public List<Customer> search(@RequestParam("filter") String filter) {
 	// 	User currentUser = userService.getCurrentUser();
+	// 	System.out.println("currentUser"+currentUser);
 	// 	return customerRepo.search(filter, currentUser.getId());
 	// }
 
 	@GetMapping
-	public List<Customer> getAllCustomers() {
-		return customerRepo.findAll();
+	public List<Customer> getAllCustomers(@RequestParam("filter") String filter) {
+		User currentUser=userService.getCurrentUser();
+		return customerRepo.search(filter,currentUser.getId());
 	}
 	
 

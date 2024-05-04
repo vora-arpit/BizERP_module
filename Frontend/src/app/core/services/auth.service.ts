@@ -55,9 +55,6 @@ export class AuthService {
   resetPassword(token: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.rootPath}/reset-password`, { token, password });
 }
-
-  
-
   processOAuth2LoginResult(token: string) {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<User>(`${this.rootPath}/current`, { headers })

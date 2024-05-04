@@ -23,7 +23,7 @@ import com.server.crm1.repository.user.UserRepository;
 import com.server.crm1.security.UserPrincipal;
 
 @Service
-public class UserService {
+public class  UserService {
 
 	@Autowired
 	private UserRepository userRepo;
@@ -55,7 +55,7 @@ public class UserService {
 		return userRepo.save(u);
 	}
 
-	@PreAuthorize("hasRole('" + Role.ADMIN + "')")
+	@PreAuthorize("hasRole('" + Role.SUPERADMIN + "')")
 	public void addRole(Integer userId, String roleId) {
 		if (userId == null || roleId == null)
 			throw new BadRequestException("User and Role are required.");

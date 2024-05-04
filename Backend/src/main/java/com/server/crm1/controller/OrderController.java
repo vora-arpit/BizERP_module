@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.server.crm1.model.sales.Order;
+import com.server.crm1.model.users.User;
 import com.server.crm1.repository.order.OrderRepository;
 import com.server.crm1.security.UserPrincipal;
 import com.server.crm1.service.OrderService;
+import com.server.crm1.service.UserService;
 
 @RestController
 @RequestMapping("/order")
@@ -27,7 +29,9 @@ public class OrderController {
 
     @Autowired
     private final OrderService orderService;
-
+    
+    @Autowired
+    private UserService userService;
     
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
@@ -40,7 +44,8 @@ public class OrderController {
     
     @GetMapping("/orders")
 	public List<Order> getAll() {
-		return orderService.getAllOrder();
+        User currentUser=userService.getCurrentUser();
+		return orderRepo.findByCreatedBy(currentUser);
 	}
 
     @GetMapping("/{id}") // Define a path variable for order ID
