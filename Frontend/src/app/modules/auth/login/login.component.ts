@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['admin@maplecrm.com', [Validators.required,Validators.email]],
-      password: ['saq123', [Validators.required]]
+      email: ['lanet@gmail.com', [Validators.required,Validators.email]],
+      password: ['lanet@123', [Validators.required]]
     });
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';

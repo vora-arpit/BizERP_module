@@ -24,7 +24,8 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.roles = this.roles?.sort((a, b) => a.name.localeCompare(b.name))
+    this.roles = this.roles?.filter(role => role.name !== 'SUPER_ADMIN')
+      .sort((a, b) => a.name.localeCompare(b.name))
       .map(r => ({
         ...r,
         granted: this.user?.roles.includes(r.name) ?? false

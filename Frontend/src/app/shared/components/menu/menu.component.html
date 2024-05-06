@@ -83,7 +83,7 @@
       </a>
     </li> -->
 
-    <li class="menu__item" *ngIf="user?.roles?.includes('SUPER_ADMIN')">
+    <li class="menu__item" *ngIf="user?.roles?.includes('ADMIN')">
       <a routerLink="/users"  routerLinkActive="menu__item--link-active" class="menu__item--link">
         <i-feather name="shield"></i-feather>
         <span class="menu__item--link-text">Users</span>

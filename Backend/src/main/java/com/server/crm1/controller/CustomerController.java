@@ -68,6 +68,11 @@ public class CustomerController {
 	@PutMapping("/{id}")
 	public Customer update(@PathVariable(value = "id") Integer customerId, @Valid @RequestBody Customer customer) {
 		customer.setId(customerId);
+		Customer existingCustomer=findById(customerId);
+		if(existingCustomer != null){
+			customer.setCreatedBy(existingCustomer.getCreatedBy());
+			customer.setCreatedAt(existingCustomer.getCreatedAt());
+		}
 		return customerRepo.save(customer);
 	}
 

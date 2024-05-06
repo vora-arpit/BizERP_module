@@ -52,7 +52,7 @@ const routes: Routes = [
       {
         path: 'users',
         data: {
-          roles: ['SUPER_ADMIN']
+          roles: ['ADMIN']
         },
         loadChildren: () =>
           import('./modules/users/users.module').then(m => m.UsersModule)

@@ -40,13 +40,18 @@ public class ProductService1 {
             existingProduct.setCreatedBy(existingProduct.getCreatedBy());
             return productRepository.save(existingProduct);
         }
-        return null; // Product with given ID not found
+        return null;
     }
 
+    // public List<Product> getAllProducts() {
+    //     User currentUser=userService.getCurrentUser();
+    //     return productRepository.findByCreatedBy(currentUser);
+    // }
+
     public List<Product> getAllProducts() {
-        User currentUser=userService.getCurrentUser();
-        return productRepository.findByCreatedBy(currentUser);
-    }
+            // User currentUser=userService.getCurrentUser();
+            return productRepository.findAll();
+        }
 
     public Product getProductById(Long productId) {
         Optional<Product> product = productRepository.findById(productId);

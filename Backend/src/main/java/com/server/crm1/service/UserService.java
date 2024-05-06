@@ -55,7 +55,7 @@ public class  UserService {
 		return userRepo.save(u);
 	}
 
-	@PreAuthorize("hasRole('" + Role.SUPERADMIN + "')")
+	@PreAuthorize("hasRole('" + Role.ADMIN + "')")
 	public void addRole(Integer userId, String roleId) {
 		if (userId == null || roleId == null)
 			throw new BadRequestException("User and Role are required.");

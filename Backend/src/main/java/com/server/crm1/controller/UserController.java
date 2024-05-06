@@ -24,7 +24,7 @@ import com.server.crm1.service.UserService;
 
 @RestController
 @RequestMapping("/users")
-@PreAuthorize("hasRole('" + Role.SUPERADMIN + "')")
+@PreAuthorize("hasRole('" + Role.ADMIN + "')")
 public class UserController {
 
 	@Autowired
