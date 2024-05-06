@@ -2,6 +2,7 @@ package com.server.crm1.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -45,11 +46,20 @@ public class CustomerController {
 	// 	return customerRepo.search(filter, currentUser.getId());
 	// }
 
+	// @GetMapping
+	// public List<Customer> getAllCustomers(@RequestParam("filter") String filter) {
+	// 	User currentUser=userService.getCurrentUser();
+	// 	return customerRepo.search(filter,currentUser.getId());
+	// }
+
 	@GetMapping
-	public List<Customer> getAllCustomers(@RequestParam("filter") String filter) {
-		User currentUser=userService.getCurrentUser();
-		return customerRepo.search(filter,currentUser.getId());
-	}
+	 public List<Customer> getAllCustomers(@RequestParam("filter") String filter) {
+        Integer organizationId = userService.getOrganizationId();
+        List<User> users = userService.getUsersByOrganizationId(organizationId);
+        List<Integer> userIds = users.stream().map(User::getId).collect(Collectors.toList());
+
+		return customerRepo.search(filter, userIds);
+    }
 	
 
 	@GetMapping("/{id}")
@@ -68,7 +78,14 @@ public class CustomerController {
 	@PutMapping("/{id}")
 	public Customer update(@PathVariable(value = "id") Integer customerId, @Valid @RequestBody Customer customer) {
 		customer.setId(customerId);
+
+		Customer existingCustomer=findById(customerId);
+		if(existingCustomer != null){
+			customer.setCreatedBy(existingCustomer.getCreatedBy());
+			customer.setCreatedAt(existingCustomer.getCreatedAt());
+		}
 		return customerRepo.save(customer);
+		
 	}
 
 	@DeleteMapping("/{id}")

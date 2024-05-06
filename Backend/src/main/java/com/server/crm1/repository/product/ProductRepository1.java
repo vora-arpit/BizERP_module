@@ -11,4 +11,6 @@ import com.server.crm1.model.users.User;
 public interface ProductRepository1 extends JpaRepository<Product, Long> {
 
     List<Product> findByCreatedBy(User createdBy);
+
+    List<Product> findByCreatedByIn(List<User> createdBy);
 }

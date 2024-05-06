@@ -16,4 +16,11 @@ export class MenuComponent implements OnInit {
 
   }
 
+  hasRole(roles: string[]): boolean {
+    if (!this.user || !this.user.roles) {
+      return false;
+    }
+    return roles.some(role => this.user.roles.includes(role));
+  }
+
 }

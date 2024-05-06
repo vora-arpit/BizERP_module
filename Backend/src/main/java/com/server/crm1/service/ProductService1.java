@@ -3,6 +3,7 @@ package com.server.crm1.service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,6 @@ public class ProductService1 {
     public Product updateProduct(Long productId, Product updatedProduct) {
         Product existingProduct = getProductById(productId);
         if (existingProduct != null) {
-            // Update fields of existingProduct with fields of updatedProduct
-            // For example:
             existingProduct.setName(updatedProduct.getName());
             existingProduct.setPrice(updatedProduct.getPrice());
             existingProduct.setQuantityInStock(updatedProduct.getQuantityInStock());
@@ -40,12 +39,18 @@ public class ProductService1 {
             existingProduct.setCreatedBy(existingProduct.getCreatedBy());
             return productRepository.save(existingProduct);
         }
-        return null; // Product with given ID not found
+        return null;
     }
 
+    // public List<Product> getAllProducts() {
+    //     User currentUser=userService.getCurrentUser();
+    //     return productRepository.findByCreatedBy(currentUser);
+    // }
+
     public List<Product> getAllProducts() {
-        User currentUser=userService.getCurrentUser();
-        return productRepository.findByCreatedBy(currentUser);
+        Integer organizationId = userService.getOrganizationId();
+        List<User> users = userService.getUsersByOrganizationId(organizationId);
+        return productRepository.findByCreatedByIn(users);
     }
 
     public Product getProductById(Long productId) {

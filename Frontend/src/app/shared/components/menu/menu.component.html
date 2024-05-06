@@ -15,78 +15,43 @@
         <span class="menu__item--link-text">Dashboard</span>
       </a>
     </li>
-    <li class="menu__item" >
+    <li class="menu__item" *ngIf="hasRole(['ADMIN', 'MANAGER', 'USER'])">
       <a routerLink="/customers"  routerLinkActive="menu__item--link-active" class="menu__item--link">
-        <i-feather name="users"></i-feather>
+        <mat-icon>diversity_3</mat-icon>
         <span class="menu__item--link-text">Customers</span>
       </a>
     </li>
-    <li class="menu__item" >
+    <li class="menu__item" *ngIf="hasRole(['ADMIN', 'MANAGER', 'USER'])">
       <a routerLink="/products" routerLinkActive="menu__item--link-active" class="menu__item--link">
-          <i-feather name="tag"></i-feather>
+          <mat-icon>category</mat-icon>
           <span class="menu__item--link-text">Products</span>
         </a>
     </li>
-    <li class="menu__item" >
+    <li class="menu__item" *ngIf="hasRole(['ADMIN', 'MANAGER', 'USER'])">
       <a routerLink="/order" routerLinkActive="menu__item--link-active" class="menu__item--link">
         <i-feather name="shopping-cart"></i-feather>
         <span class="menu__item--link-text">Orders</span>
       </a>
     </li>
 
-    <!-- <li class="menu__item" >
-      <a routerLink="/clients" routerLinkActive="menu__item--link-active" class="menu__item--link">
-        <i-feather name="Users"></i-feather>
-        <span class="menu__item--link-text">Client</span>
-      </a>
-    </li>
-
-    <li class="menu__item" >
-      <a routerLink="/categories" routerLinkActive="menu__item--link-active" class="menu__item--link">
-        <i-feather name="Box"></i-feather>
-        <span class="menu__item--link-text">Catagories</span>
-      </a>
-    </li>
-
-    <li class="menu__item" >
-      <a routerLink="/employees" routerLinkActive="menu__item--link-active" class="menu__item--link">
-        <i-feather name="Employees"></i-feather>
-        <span class="menu__item--link-text">Employees</span>
-      </a>
-    </li>
-
-    <li class="menu__item" >
-      <a routerLink="/Events" routerLinkActive="menu__item--link-active" class="menu__item--link">
-        <i-feather name="Events"></i-feather>
-        <span class="menu__item--link-text">Events</span>
-      </a>
-    </li>
-
-    <li class="menu__item" >
-      <a routerLink="/History" routerLinkActive="menu__item--link-active" class="menu__item--link">
-        <i-feather name="History"></i-feather>
-        <span class="menu__item--link-text">History</span>
-      </a>
-    </li>
-
-    <li class="menu__item" >
-      <a routerLink="/Productspage" routerLinkActive="menu__item--link-active" class="menu__item--link">
-        <i-feather name="Productspage"></i-feather>
-        <span class="menu__item--link-text">Productspage</span>
-      </a>
-    </li>
-
-    <li class="menu__item" >
-      <a routerLink="/client" routerLinkActive="menu__item--link-active" class="menu__item--link">
-        <i-feather name="Settings"></i-feather>
-        <span class="menu__item--link-text">Settings</span>
-      </a>
-    </li> -->
-
-    <li class="menu__item" *ngIf="user?.roles?.includes('SUPER_ADMIN')">
+    <li class="menu__item" *ngIf="hasRole(['ADMIN'])">
       <a routerLink="/users"  routerLinkActive="menu__item--link-active" class="menu__item--link">
-        <i-feather name="shield"></i-feather>
+        <mat-icon>person</mat-icon>
         <span class="menu__item--link-text">Users</span>
+      </a>
+    </li>
+
+    <li class="menu__item" *ngIf="hasRole(['SUPER_ADMIN'])">
+      <a routerLink="/superadmin/organizations" routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <mat-icon>corporate_fare</mat-icon>
+        <span class="menu__item--link-text">Organizations</span>
+      </a>
+    </li>
+
+    <li class="menu__item" *ngIf="hasRole(['SUPER_ADMIN'])">
+      <a routerLink="/superadmin/allUsers" routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <mat-icon>manage_accounts</mat-icon>
+        <span class="menu__item--link-text">Manage Users</span>
       </a>
     </li>
   </ul>

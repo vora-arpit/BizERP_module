@@ -24,7 +24,7 @@ import com.server.crm1.service.UserService;
 
 @RestController
 @RequestMapping("/users")
-@PreAuthorize("hasRole('" + Role.SUPERADMIN + "')")
+@PreAuthorize("hasRole('" + Role.ADMIN + "')")
 public class UserController {
 
 	@Autowired
@@ -53,10 +53,18 @@ public class UserController {
 		return new ApiResponse(true, "Role Removed Successfully!");
 	}
 
+	// @GetMapping
+	// public List<User> search(@RequestParam("filter") String filter) {
+	// 	return userRepo.search(filter);
+	// }
+
+
 	@GetMapping
 	public List<User> search(@RequestParam("filter") String filter) {
-		return userRepo.search(filter);
+		Integer organizationId = userService.getOrganizationId();
+		return userRepo.search(filter, organizationId);
 	}
+
 
 	@GetMapping("/{id}")
 	public User findById(@PathVariable Integer id) {

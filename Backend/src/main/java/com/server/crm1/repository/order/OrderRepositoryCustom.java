@@ -7,10 +7,9 @@ import com.server.crm1.payload.AccountOverview;
 
 public interface OrderRepositoryCustom {
 	
-	public List<Order> getLastOrders(Integer userId, int max);
+	public List<Order> getLastOrders(List<Integer> userIds, int max);
 
-
-	public AccountOverview getCurrentAccountOverview(Integer userId);
+    public AccountOverview getCurrentAccountOverview(List<Integer> userIds);
 	
 
 

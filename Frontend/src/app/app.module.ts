@@ -18,13 +18,14 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import { allEffects, allReducers } from './store/states/app.state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+// import { AllUsersComponent } from './modules/SuperAdmin/all-users/all-users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ReverseStr,
     AuthLayoutComponent,
-    ContentLayoutComponent
+    ContentLayoutComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,54 +1,112 @@
-package com.server.crm1.repository.customer;
+// package com.server.crm1.repository.customer;
 
+// import java.util.List;
+
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+// import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
+// import com.server.crm1.model.sales.Customer;
+// import com.nimbusds.oauth2.sdk.util.StringUtils;
+
+// public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
+
+// 	@Autowired
+// 	private NamedParameterJdbcTemplate jdbc;
+
+// 	@Override
+// 	public List<Customer> search(String filter, Integer userId) {
+// 		String filterParam = StringUtils.isBlank(filter) ? "" : " and c.name ilike :name ";
+// 		String sql = "select \n" +
+// 				"	c.id customer_id,\n" +
+// 				"	c.name customer_name,\n" +
+// 				"	c.createdat createdat,\n" +
+// 				"	c.city ,\n" +
+// 				"	c.state,\n" +
+// 				"	count(1) orders,\n" +
+// 				"	sum(i.price*i.quantity) total\n" +
+// 				" from customer c \n" +
+// 				" left outer join orders o on o.customer_id=c.id \n" +
+// 				" left outer join orderitem i on i.order_id=o.id \n" +
+// 				" where c.createdby_id = " + userId + "\n" +
+// 				filterParam +
+// 				" group by c.id \n" +
+// 				" order by c.name \n";
+// 		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+// 		mapSqlParameterSource.addValue("name", "%" + filter + "%");
+// 		return jdbc.query(
+// 				sql,
+// 				mapSqlParameterSource,
+// 				(rs, rowNum) -> {
+// 					int idx = 1;
+// 					Customer customer = new Customer();
+// 					customer.setId(rs.getInt(idx++));
+// 					customer.setName(rs.getString(idx++));
+// 					customer.setCreatedAt(rs.getDate(idx++));
+// 					customer.setCity(rs.getString(idx++));
+// 					customer.setState(rs.getString(idx++));
+// 					customer.setOrdercount(rs.getObject(idx++));
+// 					customer.setTotal(rs.getObject(idx++));
+// 					return customer;
+// 				});
+// 	}
+
+// }
+
+package com.server.crm1.repository.customer;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.server.crm1.model.sales.Customer;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 
+@Repository
 public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
 
-	@Autowired
-	private NamedParameterJdbcTemplate jdbc;
+    @Autowired
+    private NamedParameterJdbcTemplate jdbc;
 
-	@Override
-	public List<Customer> search(String filter, Integer userId) {
-		String filterParam = StringUtils.isBlank(filter) ? "" : " and c.name ilike :name ";
-		String sql = "select \n" +
-				"	c.id customer_id,\n" +
-				"	c.name customer_name,\n" +
-				"	c.createdat createdat,\n" +
-				"	c.city ,\n" +
-				"	c.state,\n" +
-				"	count(1) orders,\n" +
-				"	sum(i.price*i.quantity) total\n" +
-				" from customer c \n" +
-				" left outer join orders o on o.customer_id=c.id \n" +
-				" left outer join orderitem i on i.order_id=o.id \n" +
-				" where c.createdby_id = " + userId + "\n" +
-				filterParam +
-				" group by c.id \n" +
-				" order by c.name \n";
-		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-		mapSqlParameterSource.addValue("name", "%" + filter + "%");
-		return jdbc.query(
-				sql,
-				mapSqlParameterSource,
-				(rs, rowNum) -> {
-					int idx = 1;
-					Customer customer = new Customer();
-					customer.setId(rs.getInt(idx++));
-					customer.setName(rs.getString(idx++));
-					customer.setCreatedAt(rs.getDate(idx++));
-					customer.setCity(rs.getString(idx++));
-					customer.setState(rs.getString(idx++));
-					customer.setOrdercount(rs.getObject(idx++));
-					customer.setTotal(rs.getObject(idx++));
-					return customer;
-				});
-	}
+    @Override
+    public List<Customer> search(String filter, List<Integer> userIds) {
+        String filterParam = StringUtils.isBlank(filter) ? "" : " and c.name ilike :name ";
+        String sql = "select \n" +
+                "	c.id customer_id,\n" +
+                "	c.name customer_name,\n" +
+                "	c.createdat createdat,\n" +
+                "	c.city ,\n" +
+                "	c.state,\n" +
+                "	count(1) orders,\n" +
+                "	sum(i.price*i.quantity) total\n" +
+                " from customer c \n" +
+                " left outer join orders o on o.customer_id=c.id \n" +
+                " left outer join orderitem i on i.order_id=o.id \n" +
+                " where c.createdby_id IN (:userIds) \n" +
+                filterParam +
+                " group by c.id \n" +
+                " order by c.name \n";
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("userIds", userIds);
+        mapSqlParameterSource.addValue("name", "%" + filter + "%");
+        return jdbc.query(
+                sql,
+                mapSqlParameterSource,
+                (rs, rowNum) -> {
+                    int idx = 1;
+                    Customer customer = new Customer();
+                    customer.setId(rs.getInt(idx++));
+                    customer.setName(rs.getString(idx++));
+                    customer.setCreatedAt(rs.getDate(idx++));
+                    customer.setCity(rs.getString(idx++));
+                    customer.setState(rs.getString(idx++));
+                    customer.setOrdercount(rs.getObject(idx++));
+                    customer.setTotal(rs.getObject(idx++));
+                    return customer;
+                });
+    }
 
 }
+

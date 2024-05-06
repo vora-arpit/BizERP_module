@@ -38,7 +38,7 @@ public class  UserService {
 	private CustomerRepository customerRepo;
 
 	public User create(User user) {
-		Optional<Role> defaultRole = roleRepo.findById(Role.DEFAULT);
+		Optional<Role> defaultRole = roleRepo.findById(Role.ADMIN);
 		user = userRepo.save(user);
 		UserRole userRole = new UserRole();
 		userRole.setRole(defaultRole.get());
@@ -55,7 +55,7 @@ public class  UserService {
 		return userRepo.save(u);
 	}
 
-	@PreAuthorize("hasRole('" + Role.SUPERADMIN + "')")
+	@PreAuthorize("hasRole('" + Role.ADMIN + "')")
 	public void addRole(Integer userId, String roleId) {
 		if (userId == null || roleId == null)
 			throw new BadRequestException("User and Role are required.");
@@ -99,13 +99,29 @@ public class  UserService {
 	public User getCurrentUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-		return userPrincipal.getRef();
+		User currentUser = userPrincipal.getRef();
+		
+		// Print list of users with the same organization_id
+		// List<User> users = getUsersByOrganizationId();
+		// System.out.println("Users with the same organization_id: " + users);
+	
+		return currentUser;
 	}
+	
 
 	public Integer getOrganizationId() {
         User currentUser = getCurrentUser();
         // Assuming the organization ID is a field in the User entity, replace this with your actual field name
         return currentUser.getOrganizationId();
+    }
+
+	// public List<User> getUsersByOrganizationId() {
+    //     Integer organizationId = getOrganizationId();
+    //     return userRepo.findByOrganizationId(organizationId);
+    // }
+
+	public List<User> getUsersByOrganizationId(Integer organizationId) {
+        return userRepo.findByOrganizationId(organizationId);
     }
 
     public Integer getPositionId() {

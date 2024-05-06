@@ -52,11 +52,27 @@ const routes: Routes = [
       {
         path: 'users',
         data: {
-          roles: ['SUPER_ADMIN']
+          roles: ['ADMIN']
         },
         loadChildren: () =>
           import('./modules/users/users.module').then(m => m.UsersModule)
-      }
+      },
+      {
+        path: 'superadmin',
+        data: {
+          roles: ['SUPER_ADMIN']
+        },
+        loadChildren: () =>
+          import('./modules/super-admin/super-admin.module').then(m => m.SuperAdminModule)
+      },
+      // {
+      //   path: 'organizations',
+      //   data: {
+      //     roles: ['SUPER_ADMIN']
+      //   },
+      //   loadChildren: () =>
+      //     import('./modules/super-admin/super-admin.module').then(m => m.SuperAdminModule)
+      // }
     ]
   },
   {

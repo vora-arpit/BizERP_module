@@ -37,10 +37,10 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/lastorders")
-	public List<Order> getAllOrder(@AuthenticationPrincipal Authentication authentication) {
-		return orderRepo.getLastOrders(((UserPrincipal) authentication.getPrincipal()).getId(), 5);
-	}
+    // @GetMapping("/lastorders")
+	// public List<Order> getAllOrder(@AuthenticationPrincipal Authentication authentication) {
+	// 	return orderRepo.getLastOrders(((UserPrincipal) authentication.getPrincipal()).getId(), 5);
+	// }
     
     @GetMapping("/orders")
 	public List<Order> getAll() {

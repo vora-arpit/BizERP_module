@@ -6,6 +6,7 @@ import com.server.crm1.model.sales.Customer;
 
 public interface CustomerRepositoryCustom {
 
-	public List<Customer> search(String filter, Integer userId);
+	public List<Customer> search(String filter, List<Integer> userIds);
+
 
 }
