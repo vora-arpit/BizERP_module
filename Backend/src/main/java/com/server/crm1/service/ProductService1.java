@@ -48,7 +48,7 @@ public class ProductService1 {
     // }
 
     public List<Product> getAllProducts() {
-        Integer organizationId = userService.getOrganizationId();
+        Long organizationId = userService.getOrganizationId();
         List<User> users = userService.getUsersByOrganizationId(organizationId);
         return productRepository.findByCreatedByIn(users);
     }

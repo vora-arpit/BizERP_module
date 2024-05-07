@@ -43,7 +43,7 @@ public class DashboardController {
 
 	@GetMapping("/account")
 	public AccountOverview account(@AuthenticationPrincipal Authentication authentication) {
-    Integer organizationId = userService.getOrganizationId();
+    Long organizationId = userService.getOrganizationId();
     List<User> users = userService.getUsersByOrganizationId(organizationId);
     List<Integer> userIds = users.stream().map(User::getId).collect(Collectors.toList());
     
@@ -52,7 +52,7 @@ public class DashboardController {
 
 	@GetMapping("/last-orders")
 	public List<Order> lastOrders(@AuthenticationPrincipal Authentication authentication) {
-		Integer organizationId = userService.getOrganizationId();
+		Long organizationId = userService.getOrganizationId();
 		List<User> users = userService.getUsersByOrganizationId(organizationId);
 		List<Integer> userIds = users.stream().map(User::getId).collect(Collectors.toList());
 		

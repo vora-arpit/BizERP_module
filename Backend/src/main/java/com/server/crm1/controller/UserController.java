@@ -61,7 +61,7 @@ public class UserController {
 
 	@GetMapping
 	public List<User> search(@RequestParam("filter") String filter) {
-		Integer organizationId = userService.getOrganizationId();
+		Long organizationId = userService.getOrganizationId();
 		return userRepo.search(filter, organizationId);
 	}
 
@@ -77,5 +77,8 @@ public class UserController {
 		user.setId(id);
 		return userService.update(user);
 	}
+
+	
+
 
 }

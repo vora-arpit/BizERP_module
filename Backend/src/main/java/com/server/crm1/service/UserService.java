@@ -109,7 +109,7 @@ public class  UserService {
 	}
 	
 
-	public Integer getOrganizationId() {
+	public Long getOrganizationId() {
         User currentUser = getCurrentUser();
         // Assuming the organization ID is a field in the User entity, replace this with your actual field name
         return currentUser.getOrganizationId();
@@ -120,7 +120,7 @@ public class  UserService {
     //     return userRepo.findByOrganizationId(organizationId);
     // }
 
-	public List<User> getUsersByOrganizationId(Integer organizationId) {
+	public List<User> getUsersByOrganizationId(Long organizationId) {
         return userRepo.findByOrganizationId(organizationId);
     }
 

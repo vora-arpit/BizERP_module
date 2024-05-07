@@ -4,14 +4,17 @@
         <input type="text" placeholder="Filter..." 
         (keyup)="onKeyUp($event)">
       </div>
+      <div class="col text-right">
+        <button routerLink="new" class="btn btn-primary"><mat-icon>add</mat-icon></button>
+      </div>
     </div>
     <table class="table table-hover-striped mgt-small">
       <thead>
         <tr>
           <th style="width: 10%" class="align-center">#</th>
           <th style="width: 10%"></th>
-          <th style="width: 30%">Name</th>
-          <th style="width: 25%">Email</th>
+          <th style="width: 20%">Name</th>
+          <th style="width: 20%">Email</th>
           <th style="width: 15%">Roles</th>
         </tr>
       </thead>

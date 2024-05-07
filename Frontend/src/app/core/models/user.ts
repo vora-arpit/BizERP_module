@@ -1,3 +1,5 @@
+import { Organizations } from "./organizations";
+
 export class User {
     id!: number;
     email!: string;
@@ -7,4 +9,5 @@ export class User {
     imageUrl?: string;
     token?: string;
     email_verified?:boolean;
+    organizationId:bigint;
 }

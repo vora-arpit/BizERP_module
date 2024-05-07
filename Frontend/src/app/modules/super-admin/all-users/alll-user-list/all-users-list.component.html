@@ -1,1 +1,38 @@
-<p>all-users works!</p>
+<div class="panel white mgt-med mgb-med">
+    <div class="grid-2">
+      <div class="form col">
+        <input type="text" placeholder="Filter..." 
+        (keyup)="onKeyUp($event)">
+      </div>
+      <div class="col text-right">
+        <button routerLink="new" class="btn btn-primary"><mat-icon>add</mat-icon></button>
+      </div>
+    </div>
+    <table class="table table-hover-striped mgt-small">
+      <thead>
+        <tr>
+          <th style="width: 10%" class="align-center">#</th>
+          <th style="width: 10%"></th>
+          <th style="width: 30%">Name</th>
+          <th style="width: 30%">Email</th>
+          <th style="width: 20%" class="align-center">Organization</th>
+          <th style="width: 15%">Roles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index"> 
+          <td class="align-center">{{user.id}}</td>
+          <td class="align-left">
+            <img src="{{user.imageUrl || '/assets/images/nouser.png'}}" alt="avatar" class="user-pic">
+          </td>
+          <td>
+              <a routerLink="{{user.id}}">{{user.name}}</a>
+          </td>
+          <td>{{user.email}}</td>
+          <td class="align-center">{{user.organizationId}}</td>
+          <td>{{user.roles}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

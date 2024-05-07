@@ -9,6 +9,7 @@ export * from './material.service';
 export * from './order.service';
 export * from './payment.service';
 export * from './profileSetting.service';
+export * from './superAdmin.service';
 
 
 

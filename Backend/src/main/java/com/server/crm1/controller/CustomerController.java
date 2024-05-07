@@ -54,7 +54,7 @@ public class CustomerController {
 
 	@GetMapping
 	 public List<Customer> getAllCustomers(@RequestParam("filter") String filter) {
-        Integer organizationId = userService.getOrganizationId();
+        Long organizationId = userService.getOrganizationId();
         List<User> users = userService.getUsersByOrganizationId(organizationId);
         List<Integer> userIds = users.stream().map(User::getId).collect(Collectors.toList());
 

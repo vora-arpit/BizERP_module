@@ -58,6 +58,14 @@ const routes: Routes = [
           import('./modules/users/users.module').then(m => m.UsersModule)
       },
       {
+        path: 'Addusersadmin',
+        data: {
+          roles: ['ADMIN']
+        },
+        loadChildren: () =>
+          import('./modules/Add-user-admin/users.module').then(m => m.UsersModule)
+      },
+      {
         path: 'superadmin',
         data: {
           roles: ['SUPER_ADMIN']

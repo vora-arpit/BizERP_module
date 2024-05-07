@@ -2,6 +2,7 @@ package com.server.crm1.payload;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class SignUpRequest {
 	@NotBlank
@@ -13,6 +14,9 @@ public class SignUpRequest {
 
 	@NotBlank
 	private String password;
+
+	@NotNull
+	private Long organizationId;
 
 	public String getName() {
 		return name;
@@ -36,5 +40,13 @@ public class SignUpRequest {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Long getOrganizationId() {
+		return organizationId;
+	}
+
+	public void setOrganizationId(Long organizationId) {
+		this.organizationId = organizationId;
 	}
 }

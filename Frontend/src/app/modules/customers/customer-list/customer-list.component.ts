@@ -47,9 +47,9 @@ export class CustomerListComponent implements AfterViewInit, OnInit, OnChanges {
   }
 
   onPageChange(event: any): void {
-    this.currentPage = event.pageIndex + 1; // Update currentPage (pageIndex is 0-based)
-    this.itemsPerPage = event.pageSize; // Update itemsPerPage
-    this.updatePagedCustomers(); // Update pagedCustomers based on new pagination settings
+    this.currentPage = event.pageIndex + 1;
+    this.itemsPerPage = event.pageSize;
+    this.updatePagedCustomers();
   }
   
 

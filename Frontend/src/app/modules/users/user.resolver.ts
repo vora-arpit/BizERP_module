@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
-import { User, UserService } from '../../core';
+import { SuperAdminService, User, UserService } from '../../core';
 
 @Injectable()
 export class UserResolver implements Resolve<Observable<User>>{
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,private superAdminService:SuperAdminService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<User> {
     const id = route.paramMap.get('id');
@@ -18,4 +18,5 @@ export class UserResolver implements Resolve<Observable<User>>{
       throw new Error('User ID is missing in the route parameters');
     }
   }
+
 }

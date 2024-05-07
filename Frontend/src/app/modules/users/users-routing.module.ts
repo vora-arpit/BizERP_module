@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserEditContainer } from './user-edit/user-edit.container';
 import { UserListContainer } from './user-list/user-list.container';
 import { UserResolver } from './user.resolver';
+import { AdminsAddUsersComponent } from './admins-add-users/admins-add-users.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,12 @@ const routes: Routes = [
       user: UserResolver
     },
     data: { title: 'Edit User' }
-  }
+  },
+  {
+    path: 'new',
+    component: AdminsAddUsersComponent,
+    data: { title: 'User List' }
+  },
 
 ]
 

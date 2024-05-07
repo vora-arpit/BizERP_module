@@ -40,6 +40,12 @@
         <span class="menu__item--link-text">Users</span>
       </a>
     </li>
+    <li class="menu__item" *ngIf="hasRole(['ADMIN'])">
+      <a routerLink="/Addusersadmin"  routerLinkActive="menu__item--link-active" class="menu__item--link">
+        <mat-icon>group_add</mat-icon>
+        <span class="menu__item--link-text">Add Users</span>
+      </a>
+    </li>
 
     <li class="menu__item" *ngIf="hasRole(['SUPER_ADMIN'])">
       <a routerLink="/superadmin/organizations" routerLinkActive="menu__item--link-active" class="menu__item--link">

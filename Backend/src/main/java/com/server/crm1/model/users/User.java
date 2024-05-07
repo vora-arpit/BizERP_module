@@ -60,7 +60,7 @@ public class User {
 	@Transient
 	private List<String> roles;
 
-	private Integer organizationId;
+	private Long organizationId;
 
     private Integer positionId;
 
@@ -148,11 +148,11 @@ public class User {
 			return ur.getRole().getName();
 		}).collect(Collectors.toList());
 	}
-	public Integer getOrganizationId() {
+	public Long getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(Integer organizationId) {
+    public void setOrganizationId(Long organizationId) {
         this.organizationId = organizationId;
     }
 

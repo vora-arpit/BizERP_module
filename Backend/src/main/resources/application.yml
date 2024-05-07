@@ -4,7 +4,7 @@ logging:
 
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:5432/newcrm1
+        url: jdbc:postgresql://localhost:5432/Biz_ERP_org
         username: postgres
         password: vesper
 

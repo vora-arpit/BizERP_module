@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SuperAdminRoutingModule } from './super-admin-routing.module';
+import { SharedModule } from '@coreui/angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrganizationsModule } from './organizations/organizations.module';
+import { AllUsersModule } from './all-users/all-users.module';
 
 
 
@@ -8,7 +12,7 @@ import { SuperAdminRoutingModule } from './super-admin-routing.module';
   declarations: [
   ],
   imports: [
-    CommonModule,SuperAdminRoutingModule
+    CommonModule,SuperAdminRoutingModule,SharedModule,FormsModule,ReactiveFormsModule,OrganizationsModule,AllUsersModule
   ]
 })
 export class SuperAdminModule { }

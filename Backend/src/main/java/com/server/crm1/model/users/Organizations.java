@@ -1,5 +1,6 @@
 package com.server.crm1.model.users;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,9 +12,11 @@ public class Organizations {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long id;
 
-    public String Org_Name;
+    @Column(name = "name")
+    public String name;
 
-    public String Org_Description;
+    @Column(name = "description")
+    public String description;
 
     public Long getId() {
         return id;
@@ -21,21 +24,21 @@ public class Organizations {
 
     public void setId(Long id) {
         this.id = id;
-        }
-
-    public String getName() {
-        return Org_Name;
     }
 
-    public void setName(String Org_Name) {
-        this.Org_Name = Org_Name;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
-        return Org_Description;
+        return description;
     }
 
-    public void setDescription(String Org_Description) {
-        this.Org_Description = Org_Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

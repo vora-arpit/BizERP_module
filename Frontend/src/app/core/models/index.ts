@@ -12,6 +12,7 @@ export * from './position';
 export * from './event';
 export * from './filter';
 export * from './owner';
+export * from './organizations';
 
 
 
